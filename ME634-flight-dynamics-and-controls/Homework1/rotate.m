@@ -15,5 +15,5 @@ R3 = [...
     0 cos(phi)  -sin(phi);
     0 sin(phi) cos(phi)];
 
-pnts = R3*R2*R1*pnts;
+pnts = (R3*R2*R1)'*pnts;
 end
