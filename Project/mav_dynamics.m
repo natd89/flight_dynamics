@@ -79,19 +79,18 @@ sys = simsizes(sizes);
 % initialize the initial conditions
 %
 x0  = [...
-    P.pn0 = 0;...
-    P.pe0 = 0;...
-    P.pd0 = 0;...
-    P.u0 = 0;...
-    P.v0 = 0;...
-    P.w0 = 0;...
-    P.phi0 = 0;...
-    P.th0 = 0;...
-    P.psi0 = 0;...
-    P.p0 = 0;...
-    P.q0 = 0;...
-    P.r0 = 0;...
-    ];
+    P.pn0;...
+    P.pe0;...
+    P.pd0;...
+    P.u0;...
+    P.v0;...
+    P.w0;...
+    P.phi0;...
+    P.th0;...
+    P.psi0;...
+    P.p0;...
+    P.q0;...
+    P.r0];
 
 %
 % str is always an empty matrix
@@ -118,17 +117,17 @@ simStateCompliance = 'UnknownSimState';
 % Return the derivatives for the continuous states.
 %=============================================================================
 %
-function sys=mdlDerivatives(t,x,uu, P)
+function sys=mdlDerivatives(t,x,uu,P)
 
-    phi   = x(1);
-    th    = x(2);
-    psi   = x(3);
-    pn    = x(4);
-    pe    = x(5);
-    pe    = x(6);
-    u     = x(7);
-    v     = x(8);
-    w     = x(9);
+    pn    = x(1);
+    pe    = x(2);
+    pd    = x(3);
+    u     = x(4);
+    v     = x(5);
+    w     = x(6);
+    phi   = x(7);
+    th    = x(8);
+    psi   = x(9);
     p     = x(10);
     q     = x(11);
     r     = x(12);
@@ -138,8 +137,13 @@ function sys=mdlDerivatives(t,x,uu, P)
     ell   = uu(4);
     m     = uu(5);
     n     = uu(6);
-    
 
+mass = P.m;    
+Jx = P.Jx;
+Jy = P.Jy;
+Jz = P.Jz;
+Jxz = P.Jxz;
+    
 gamma = Jx*Jz-Jxz*Jxz;
 gamma1 = Jxz*(Jx-Jy+Jz)/gamma;
 gamma2 = (Jz*(Jz-Jy)+Jxz*Jxz)/gamma;
@@ -153,7 +157,7 @@ gamma8 = Jx/gamma;
 
 ned_dot = [...
     cos(th)*cos(psi) sin(phi)*sin(th)*cos(psi)-cos(phi)*sin(psi) cos(phi)*sin(th)*cos(psi)+sin(phi)*sin(psi);
-    cos(th)*sin(psi) sin(phi)*sin(th)*sin(psi)-cos(phi)*cos(psi) cos(phi)*sin(th)*sin(psi)+sin(phi)*cos(psi);
+    cos(th)*sin(psi) sin(phi)*sin(th)*sin(psi)+cos(phi)*cos(psi) cos(phi)*sin(th)*sin(psi)-sin(phi)*cos(psi);
     -sin(th)         sin(phi)*cos(th)                             cos(phi)*cos(th)                           ]...
     *[u;v;w];
 
@@ -161,7 +165,7 @@ pn_dot = ned_dot(1);
 pe_dot = ned_dot(2);
 pd_dot = ned_dot(3);
 
-uvw_dot = [r*v-q*w;p*w-r*u; q*u-p*v] + 1/m*[f_x;f_y;f_z];
+uvw_dot = [r*v-q*w;p*w-r*u; q*u-p*v] + 1/mass*[fx;fy;fz];
 
 u_dot = uvw_dot(1);
 v_dot = uvw_dot(2);
@@ -178,13 +182,13 @@ th_dot = ptp_dot(2);
 psi_dot = ptp_dot(3);
 
 pqr_dot = [gamma1*p*q-gamma2*q*r; gamma5*p*r-gamma6*(p*p-r*r);gamma7*p*q-gamma1*q*r] + ...
-    [gamma3*l+gamma4*n; 1/Jy*m; gamma4*l+gamma8*n];
+    [gamma3*ell+gamma4*n; 1/Jy*m; gamma4*ell+gamma8*n];
 
 p_dot = pqr_dot(1);
 q_dot = pqr_dot(2);
 r_dot = pqr_dot(3);
 
-sys = [psi_dot;th_dot;phi_dot;pn_dot;pe_dot;pd_dot;u_dot;v_dot;w_dot;p_dot;q_dot;r_dot];
+sys = [pn_dot;pe_dot;pd_dot;u_dot;v_dot;w_dot;phi_dot;th_dot;psi_dot;p_dot;q_dot;r_dot];
 
 % end mdlDerivatives
 
