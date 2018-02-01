@@ -25,7 +25,7 @@ if t==0
    figure(1)
    clf
    handle = patch('Vertices',pnts_f','Faces',faces,'FaceColor','b');
-   axis([-2,2,-2,2,-2,2]);
+   axis(10*[-5,5,-5,5,-5,5]);
    grid on
 else
     
@@ -50,7 +50,7 @@ end
 
 function [V, F] = pnts_faces
 
-V = [...
+V = 10*[...
     0.25,     0,       0;
     .125,    .1,     -.1;
     .125,   -.1,     -.1;

@@ -69,7 +69,7 @@ sizes = simsizes;
 sizes.NumContStates  = 12;
 sizes.NumDiscStates  = 0;
 sizes.NumOutputs     = 12;
-sizes.NumInputs      = 6;
+sizes.NumInputs      = 12;
 sizes.DirFeedthrough = 0;
 sizes.NumSampleTimes = 1;   % at least one sample time is needed
 
@@ -138,14 +138,14 @@ function sys=mdlDerivatives(t,x,uu,P)
     m     = uu(5);
     n     = uu(6);
 
-mass = P.m;    
+mass = P.mass;    
 Jx = P.Jx;
 Jy = P.Jy;
 Jz = P.Jz;
 Jxz = P.Jxz;
     
 gamma = Jx*Jz-Jxz*Jxz;
-gamma1 = Jxz*(Jx-Jy+Jz)/gamma;
+gamma1 = (Jxz*(Jx-Jy+Jz))/gamma;
 gamma2 = (Jz*(Jz-Jy)+Jxz*Jxz)/gamma;
 gamma3 = Jz/gamma;
 gamma4 = Jxz/gamma;
