@@ -1,8 +1,9 @@
 % initial states
+P.va0 = 25;
 P.pn0 = 0;
 P.pe0 = 0;
 P.pd0 = 0;
-P.u0 = 1;
+P.u0 = P.va0;
 P.v0 = 0;
 P.w0 = 0;
 P.phi0 = 0;
@@ -67,7 +68,6 @@ P.Cldelr = 0.105;
 P.lu = 200;
 P.lv = P.lu;
 P.lw = 50;
-P.va0 = 0.1;
 P.Ts = 0.0005;
 P.sigmau = 1.06;
 P.sigmav = P.sigmau;

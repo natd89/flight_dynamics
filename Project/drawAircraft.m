@@ -43,14 +43,14 @@ else
 
     pnts_f = R*pnts_t'; 
    set(handle,'Vertices',pnts_f','Faces',faces);
-%    axis([pn-1,pn+1,pe-1,pe+1,pd-1,pd+1]);
+   axis([pe-1,pe+1,pn-1,pn+1,-pd-1,-pd+1]);
 end
 
 end
 
 function [V, F] = pnts_faces
 
-V = 10*[...
+V = [...
     0.25,     0,       0;
     .125,    .1,     -.1;
     .125,   -.1,     -.1;
