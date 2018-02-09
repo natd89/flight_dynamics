@@ -21,30 +21,30 @@ function plotMAVStateVariables(uu)
     wn          = uu(16);            % wind in the North direction
     we          = uu(17);            % wind in the East direction
     wd          = uu(18);            % wind in the Down direction
-    pn_c        = uu(19);            % commanded North position (meters)
-    pe_c        = uu(20);            % commanded East position (meters)
-    h_c         = uu(21);            % commanded altitude (meters)
-    Va_c        = uu(22);            % commanded airspeed (meters/s)
-    alpha_c     = 180/pi*uu(23);     % commanded angle of attack (degrees)
-    beta_c      = 180/pi*uu(24);     % commanded side slip angle (degrees)
-    phi_c       = 180/pi*uu(25);     % commanded roll angle (degrees)   
-    theta_c     = 180/pi*uu(26);     % commanded pitch angle (degrees)
-    chi_c       = 180/pi*uu(27);     % commanded course (degrees)
-    p_c         = 180/pi*uu(28);     % commanded body angular rate along x-axis (degrees/s)
-    q_c         = 180/pi*uu(29);     % commanded body angular rate along y-axis (degrees/s)
-    r_c         = 180/pi*uu(30);     % commanded body angular rate along z-axis (degrees/s)
-    pn_hat      = uu(31);            % estimated North position (meters)
-    pe_hat      = uu(32);            % estimated East position (meters)
-    h_hat       = uu(33);            % estimated altitude (meters)
-    Va_hat      = uu(34);            % estimated airspeed (meters/s)
-    alpha_hat   = 180/pi*uu(35);     % estimated angle of attack (degrees)
-    beta_hat    = 180/pi*uu(36);     % estimated side slip angle (degrees)
-    phi_hat     = 180/pi*uu(37);     % estimated roll angle (degrees)   
-    theta_hat   = 180/pi*uu(38);     % estimated pitch angle (degrees)
-    chi_hat     = 180/pi*uu(39);     % estimated course (degrees)
-    p_hat       = 180/pi*uu(40);     % estimated body angular rate along x-axis (degrees/s)
-    q_hat       = 180/pi*uu(41);     % estimated body angular rate along y-axis (degrees/s)
-    r_hat       = 180/pi*uu(42);     % estimated body angular rate along z-axis (degrees/s)
+%     pn_c        = uu(19);            % commanded North position (meters)
+%     pe_c        = uu(20);            % commanded East position (meters)
+%     h_c         = uu(21);            % commanded altitude (meters)
+%     Va_c        = uu(22);            % commanded airspeed (meters/s)
+%     alpha_c     = 180/pi*uu(23);     % commanded angle of attack (degrees)
+%     beta_c      = 180/pi*uu(24);     % commanded side slip angle (degrees)
+%     phi_c       = 180/pi*uu(25);     % commanded roll angle (degrees)   
+%     theta_c     = 180/pi*uu(26);     % commanded pitch angle (degrees)
+%     chi_c       = 180/pi*uu(27);     % commanded course (degrees)
+%     p_c         = 180/pi*uu(28);     % commanded body angular rate along x-axis (degrees/s)
+%     q_c         = 180/pi*uu(29);     % commanded body angular rate along y-axis (degrees/s)
+%     r_c         = 180/pi*uu(30);     % commanded body angular rate along z-axis (degrees/s)
+%     pn_hat      = uu(31);            % estimated North position (meters)
+%     pe_hat      = uu(32);            % estimated East position (meters)
+%     h_hat       = uu(33);            % estimated altitude (meters)
+%     Va_hat      = uu(34);            % estimated airspeed (meters/s)
+%     alpha_hat   = 180/pi*uu(35);     % estimated angle of attack (degrees)
+%     beta_hat    = 180/pi*uu(36);     % estimated side slip angle (degrees)
+%     phi_hat     = 180/pi*uu(37);     % estimated roll angle (degrees)   
+%     theta_hat   = 180/pi*uu(38);     % estimated pitch angle (degrees)
+%     chi_hat     = 180/pi*uu(39);     % estimated course (degrees)
+%     p_hat       = 180/pi*uu(40);     % estimated body angular rate along x-axis (degrees/s)
+%     q_hat       = 180/pi*uu(41);     % estimated body angular rate along y-axis (degrees/s)
+%     r_hat       = 180/pi*uu(42);     % estimated body angular rate along z-axis (degrees/s)
 %    Vg_hat      = uu(43);            % estimated groundspeed
 %    wn_hat      = uu(44);            % estimated North wind
 %    we_hat      = uu(45);            % estimated East wind
@@ -52,11 +52,11 @@ function plotMAVStateVariables(uu)
 %    bx_hat      = uu(47);            % estimated x-gyro bias
 %    by_hat      = uu(48);            % estimated y-gyro bias
 %    bz_hat      = uu(49);            % estimated z-gyro bias
-    delta_e     = 180/pi*uu(50);     % elevator angle (degrees)
-    delta_a     = 180/pi*uu(51);     % aileron angle (degrees)
-    delta_r     = 180/pi*uu(52);     % rudder angle (degrees)
-    delta_t     = uu(53);            % throttle setting (unitless)
-    t           = uu(54);            % simulation time
+    delta_e     = 180/pi*uu(19);     % elevator angle (degrees)
+    delta_a     = 180/pi*uu(20);     % aileron angle (degrees)
+    delta_r     = 180/pi*uu(21);     % rudder angle (degrees)
+    delta_t     = uu(22);            % throttle setting (unitless)
+    t           = uu(23);            % simulation time
     
     % compute course angle
     chi = 180/pi*atan2(Va*sin(psi)+we, Va*cos(psi)+wn);
@@ -81,56 +81,150 @@ function plotMAVStateVariables(uu)
     
 
   % first time function is called, initialize plot and persistent vars
-    if t==0,
+%     if t==0,
+%         figure(2), clf
+% 
+%         subplot(8,2,1)
+%         hold on
+%         pn_handle = graph_y_yhat_yd(t, pn, pn_hat, pn_c, 'p_n', []);
+%         
+%         subplot(8,2,2)
+%         hold on
+%         Va_handle = graph_y_yhat_yd(t, Va, Va_hat, Va_c, 'V_a', []);
+% 
+%         subplot(8,2,3)
+%         hold on
+%         pe_handle = graph_y_yhat_yd(t, pe, pe_hat, pe_c, 'p_e', []);
+% 
+%         subplot(8,2,4)
+%         hold on
+%         alpha_handle = graph_y_yhat_yd(t, alpha, alpha_hat, alpha_c, '\alpha', []);
+% 
+%         subplot(8,2,5)
+%         hold on
+%         h_handle = graph_y_yhat_yd(t, h, h_hat, h_c, 'h', []);
+% 
+%         subplot(8,2,6)
+%         hold on
+%         beta_handle = graph_y_yhat_yd(t, beta, beta_hat, beta_c, '\beta', []);
+% 
+%         subplot(8,2,7)
+%         hold on
+%         phi_handle = graph_y_yhat_yd(t, phi, phi_hat, phi_c, '\phi', []);
+%         
+%         subplot(8,2,8)
+%         hold on
+%         p_handle = graph_y_yhat_yd(t, p, p_hat, p_c, 'p', []);
+%         
+%         subplot(8,2,9)
+%         hold on
+%         theta_handle = graph_y_yhat_yd(t, theta, theta_hat, theta_c, '\theta', []);
+%         
+%         subplot(8,2,10)
+%         hold on
+%         q_handle = graph_y_yhat_yd(t, q, q_hat, q_c, 'q', []);
+%         
+%         subplot(8,2,11)
+%         hold on
+%         chi_handle = graph_y_yhat_yd(t, chi, chi_hat, chi_c, '\chi', []);
+%         
+%         subplot(8,2,12)
+%         hold on
+%         r_handle = graph_y_yhat_yd(t, r, r_hat, r_c, 'r', []);
+%         
+%         subplot(8,2,13)
+%         hold on
+%         delta_e_handle = graph_y(t, delta_e, [], 'b');
+%         ylabel('\delta_e')
+%         
+%         subplot(8,2,14)
+%         hold on
+%         delta_a_handle = graph_y(t, delta_a, [], 'b');
+%         ylabel('\delta_a')
+% 
+%         subplot(8,2,15)
+%         hold on
+%         delta_r_handle = graph_y(t, delta_r, [], 'b');
+%         ylabel('\delta_r')
+%         
+%         subplot(8,2,16)
+%         hold on
+%         delta_t_handle = graph_y(t, delta_t, [], 'b');
+%         ylabel('\delta_t')
+%         
+%     % at every other time step, redraw state variables
+%     else 
+%        graph_y_yhat_yd(t, pn, pn_hat, pn_c, 'p_n', pn_handle);
+%        graph_y_yhat_yd(t, pe, pe_hat, pe_c, 'p_e', pe_handle);
+%        graph_y_yhat_yd(t, h, h_hat, h_c, 'h', h_handle);
+%        graph_y_yhat_yd(t, Va, Va_hat, Va_c, 'V_a', Va_handle);
+%        graph_y_yhat_yd(t, alpha, alpha_hat, alpha_c, '\alpha', alpha_handle);
+%        graph_y_yhat_yd(t, beta, beta_hat, beta_c, '\beta', beta_handle);
+%        graph_y_yhat_yd(t, phi, phi_hat, phi_c, '\phi', phi_handle);
+%        graph_y_yhat_yd(t, theta, theta_hat, theta_c, '\theta', theta_handle);
+%        graph_y_yhat_yd(t, chi, chi_hat, chi_c, '\chi', chi_handle);
+%        graph_y_yhat_yd(t, p, p_hat, p_c, 'p', p_handle);
+%        graph_y_yhat_yd(t, q, q_hat, q_c, 'q', q_handle);
+%        graph_y_yhat_yd(t, r, r_hat, r_c, 'r', r_handle);
+%        graph_y(t, delta_e, delta_e_handle);
+%        graph_y(t, delta_a, delta_a_handle);
+%        graph_y(t, delta_r, delta_r_handle);
+%        graph_y(t, delta_t, delta_t_handle);
+%     end
+
+if t==0,
+            
+        pause(1);
+        
         figure(2), clf
 
         subplot(8,2,1)
         hold on
-        pn_handle = graph_y_yhat_yd(t, pn, pn_hat, pn_c, 'p_n', []);
+        pn_handle = graph_y(t, pn, [],  'p_n');
         
         subplot(8,2,2)
         hold on
-        Va_handle = graph_y_yhat_yd(t, Va, Va_hat, Va_c, 'V_a', []);
+        Va_handle = graph_y(t, Va, [],  'V_a');
 
         subplot(8,2,3)
         hold on
-        pe_handle = graph_y_yhat_yd(t, pe, pe_hat, pe_c, 'p_e', []);
+        pe_handle = graph_y(t, pe, [],  'p_e');
 
         subplot(8,2,4)
         hold on
-        alpha_handle = graph_y_yhat_yd(t, alpha, alpha_hat, alpha_c, '\alpha', []);
+        alpha_handle = graph_y(t, alpha, [],  '\alpha');
 
         subplot(8,2,5)
         hold on
-        h_handle = graph_y_yhat_yd(t, h, h_hat, h_c, 'h', []);
+        h_handle = graph_y(t, h, [],  'h');
 
         subplot(8,2,6)
         hold on
-        beta_handle = graph_y_yhat_yd(t, beta, beta_hat, beta_c, '\beta', []);
+        beta_handle = graph_y(t, beta, [],  '\beta');
 
         subplot(8,2,7)
         hold on
-        phi_handle = graph_y_yhat_yd(t, phi, phi_hat, phi_c, '\phi', []);
+        phi_handle = graph_y(t, phi, [],  '\phi');
         
         subplot(8,2,8)
         hold on
-        p_handle = graph_y_yhat_yd(t, p, p_hat, p_c, 'p', []);
+        p_handle = graph_y(t, p, [],  'p');
         
         subplot(8,2,9)
         hold on
-        theta_handle = graph_y_yhat_yd(t, theta, theta_hat, theta_c, '\theta', []);
+        theta_handle = graph_y(t, theta, [],  '\theta');
         
         subplot(8,2,10)
         hold on
-        q_handle = graph_y_yhat_yd(t, q, q_hat, q_c, 'q', []);
+        q_handle = graph_y(t, q, [],  'q');
         
         subplot(8,2,11)
         hold on
-        chi_handle = graph_y_yhat_yd(t, chi, chi_hat, chi_c, '\chi', []);
+        chi_handle = graph_y(t, chi, [],  '\chi');
         
         subplot(8,2,12)
         hold on
-        r_handle = graph_y_yhat_yd(t, r, r_hat, r_c, 'r', []);
+        r_handle = graph_y(t, r, [],  'r');
         
         subplot(8,2,13)
         hold on
@@ -153,33 +247,51 @@ function plotMAVStateVariables(uu)
         ylabel('\delta_t')
         
     % at every other time step, redraw state variables
+%     else 
+%        graph_y_yhat_yd(t, pn, pn_hat, pn_c, 'p_n', pn_handle);
+%        graph_y_yhat_yd(t, pe, pe_hat, pe_c, 'p_e', pe_handle);
+%        graph_y_yhat_yd(t, h, h_hat, h_c, 'h', h_handle);
+%        graph_y_yhat_yd(t, Va, Va_hat, Va_c, 'V_a', Va_handle);
+%        graph_y_yhat_yd(t, alpha, alpha_hat, alpha_c, '\alpha', alpha_handle);
+%        graph_y_yhat_yd(t, beta, beta_hat, beta_c, '\beta', beta_handle);
+%        graph_y_yhat_yd(t, phi, phi_hat, phi_c, '\phi', phi_handle);
+%        graph_y_yhat_yd(t, theta, theta_hat, theta_c, '\theta', theta_handle);
+%        graph_y_yhat_yd(t, chi, chi_hat, chi_c, '\chi', chi_handle);
+%        graph_y_yhat_yd(t, p, p_hat, p_c, 'p', p_handle);
+%        graph_y_yhat_yd(t, q, q_hat, q_c, 'q', q_handle);
+%        graph_y_yhat_yd(t, r, r_hat, r_c, 'r', r_handle);
+%        graph_y(t, delta_e, delta_e_handle);
+%        graph_y(t, delta_a, delta_a_handle);
+%        graph_y(t, delta_r, delta_r_handle);
+%        graph_y(t, delta_t, delta_t_handle);
+%     end
     else 
-       graph_y_yhat_yd(t, pn, pn_hat, pn_c, 'p_n', pn_handle);
-       graph_y_yhat_yd(t, pe, pe_hat, pe_c, 'p_e', pe_handle);
-       graph_y_yhat_yd(t, h, h_hat, h_c, 'h', h_handle);
-       graph_y_yhat_yd(t, Va, Va_hat, Va_c, 'V_a', Va_handle);
-       graph_y_yhat_yd(t, alpha, alpha_hat, alpha_c, '\alpha', alpha_handle);
-       graph_y_yhat_yd(t, beta, beta_hat, beta_c, '\beta', beta_handle);
-       graph_y_yhat_yd(t, phi, phi_hat, phi_c, '\phi', phi_handle);
-       graph_y_yhat_yd(t, theta, theta_hat, theta_c, '\theta', theta_handle);
-       graph_y_yhat_yd(t, chi, chi_hat, chi_c, '\chi', chi_handle);
-       graph_y_yhat_yd(t, p, p_hat, p_c, 'p', p_handle);
-       graph_y_yhat_yd(t, q, q_hat, q_c, 'q', q_handle);
-       graph_y_yhat_yd(t, r, r_hat, r_c, 'r', r_handle);
-       graph_y(t, delta_e, delta_e_handle);
-       graph_y(t, delta_a, delta_a_handle);
-       graph_y(t, delta_r, delta_r_handle);
-       graph_y(t, delta_t, delta_t_handle);
+       graph_y(t, pn,  pn_handle, 'p_n');
+       graph_y(t, pe, pe_handle, 'p_e');
+       graph_y(t, h, h_handle, 'h');
+       graph_y(t, Va, Va_handle, 'V_a');
+       graph_y(t, alpha, alpha_handle, '\alpha');
+       graph_y(t, beta, beta_handle, '\beta');
+       graph_y(t, phi, phi_handle, '\phi');
+       graph_y(t, theta, theta_handle, '\theta');
+       graph_y(t, chi, chi_handle, '\chi');
+       graph_y(t, p, p_handle, 'p');
+       graph_y(t, q, q_handle, 'q');
+       graph_y(t, r, r_handle, 'r');
+       graph_y(t, delta_e, delta_e_handle, 'delta_e');
+       graph_y(t, delta_a, delta_a_handle, 'delta_a');
+       graph_y(t, delta_r, delta_r_handle, 'delta_r');
+       graph_y(t, delta_t, delta_t_handle, 'delta_t');
     end
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % graph y with lable mylabel
-function handle = graph_y(t, y, handle, color)
+function handle = graph_y(t, y, handle, label)
   
   if isempty(handle),
-    handle    = plot(t,y,color);
+    handle    = plot(t,y,'r');
+    ylabel(label)            
   else
     set(handle,'Xdata',[get(handle,'Xdata'),t]);
     set(handle,'Ydata',[get(handle,'Ydata'),y]);

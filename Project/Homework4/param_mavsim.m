@@ -1,6 +1,6 @@
 % initial states
-P.va0 = 38;
-P.pn0 = 0;
+P.va0 = 17;
+P.pn0 = 100;
 P.pe0 = 0;
 P.pd0 = -100;
 P.u0 = P.va0;
@@ -75,3 +75,14 @@ P.sigmaw = 0.0;
 P.wind_n = 0.0;
 P.wind_e = 0.0;
 P.wind_d = 0.0;
+
+% 
+P.gamma = P.Jx*P.Jz-P.Jxz^2;
+P.gamma1 = (P.Jxz*(P.Jx-P.Jy+P.Jz))/P.gamma;
+P.gamma2 = (P.Jz*(P.Jz-P.Jy)+P.Jxz^2)/P.gamma;
+P.gamma3 = P.Jz/P.gamma;
+P.gamma4 = P.Jxz/P.gamma;
+P.gamma5 = (P.Jz-P.Jx)/P.Jy;
+P.gamma6 = P.Jxz/P.Jy;
+P.gamma7 = ((P.Jx-P.Jy)*P.Jx+P.Jxz^2)/P.gamma;
+P.gamma8 = P.Jx/P.gamma;

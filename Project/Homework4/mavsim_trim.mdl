@@ -48,7 +48,7 @@ Model {
       UnitExpr		      "inherit"
     }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.61"
+    ComputedModelVersion    "1.65"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -72,6 +72,7 @@ Model {
   MinMaxOverflowArchiveMode "Overwrite"
   FPTRunName		  "Run 1"
   MaxMDLFileLineLength	  120
+  InitFcn		  "param_mavsim"
   LastSavedArchitecture	  "glnxa64"
   Object {
     $PropName		    "BdWindowsInfo"
@@ -82,7 +83,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [2103.0, 91.0, 948.0, 1076.0]
+      Location		      [709.0, 186.0, 948.0, 1076.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -141,9 +142,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "nmd89"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Feb 07 15:30:04 2018"
-  RTWModifiedTimeStamp	  439918058
-  ModelVersionFormat	  "1.%<AutoIncrement:61>"
+  LastModifiedDate	  "Fri Feb 09 13:17:36 2018"
+  RTWModifiedTimeStamp	  440083021
+  ModelVersionFormat	  "1.%<AutoIncrement:65>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1083,7 +1084,7 @@ Model {
   }
   System {
     Name		    "mavsim_trim"
-    Location		    [2103, 91, 3051, 1167]
+    Location		    [709, 186, 1657, 1262]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1179,9 +1180,9 @@ Model {
       Name		      "S-Function"
       SID		      "40"
       Ports		      [1, 1]
-      Position		      [225, 170, 320, 200]
+      Position		      [225, 170, 340, 200]
       ZOrder		      40
-      FunctionName	      "mav_dynamics"
+      FunctionName	      "mav_dynamics_mavsim"
       Parameters	      "P"
       SFunctionDeploymentMode off
       EnableBusSupport	      off
@@ -1210,7 +1211,7 @@ Model {
       Variant		      off
       System {
 	Name			"Subsystem"
-	Location		[2902, 14, 3850, 1090]
+	Location		[2103, 91, 3051, 1167]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1378,7 +1379,7 @@ Model {
       ZOrder		      71
       SrcBlock		      "S-Function"
       SrcPort		      1
-      Points		      [31, 0; 0, -55; -313, 0; 0, 50]
+      Points		      [11, 0; 0, -55; -313, 0; 0, 50]
       DstBlock		      "Subsystem"
       DstPort		      1
     }

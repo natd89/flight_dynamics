@@ -144,15 +144,7 @@ Jy = P.Jy;
 Jz = P.Jz;
 Jxz = P.Jxz;
     
-gamma = Jx*Jz-Jxz^2;
-gamma1 = (Jxz*(Jx-Jy+Jz))/gamma;
-gamma2 = (Jz*(Jz-Jy)+Jxz^2)/gamma;
-gamma3 = Jz/gamma;
-gamma4 = Jxz/gamma;
-gamma5 = (Jz-Jx)/Jy;
-gamma6 = Jxz/Jy;
-gamma7 = ((Jx-Jy)*Jx+Jxz^2)/gamma;
-gamma8 = Jx/gamma;
+
 
 
 pn_dot = cos(th)*cos(psi)*u + sin(phi)*sin(th)*cos(psi)-cos(phi)*sin(psi)*v + cos(phi)*sin(th)*cos(psi)+sin(phi)*sin(psi)*w;
@@ -170,9 +162,9 @@ th_dot =  0*p + cos(phi)*q - sin(phi)*r;
 psi_dot = 0*p + sin(phi)/cos(th)*q + cos(phi)/cos(th)*r;
 
 
-p_dot = gamma1*p*q - gamma2*q*r + gamma3*ell + gamma4*n; 
-q_dot = gamma5*p*r - gamma6*(p^2-r^2) + (1/Jy)*m;
-r_dot = gamma7*p*q - gamma1*q*r + gamma4*ell+gamma8*n;
+p_dot = P.gamma1*p*q - P.gamma2*q*r + P.gamma3*ell + P.gamma4*n; 
+q_dot = P.gamma5*p*r - P.gamma6*(p^2-r^2) + (1/Jy)*m;
+r_dot = P.gamma7*p*q - P.gamma1*q*r + P.gamma4*ell + P.gamma8*n;
 
 
 sys = [pn_dot;pe_dot;pd_dot;u_dot;v_dot;w_dot;phi_dot;th_dot;psi_dot;p_dot;q_dot;r_dot];
