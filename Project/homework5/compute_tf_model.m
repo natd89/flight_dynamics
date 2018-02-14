@@ -29,7 +29,6 @@ chi = psi;
 % add stuff here
 a_phi1 = -0.5*P.rho*P.va0^2*P.S*P.b*P.Cpp*P.b/(2*P.va0);
 a_phi2 = 0.5*P.rho*P.va0^2*P.S*P.b*P.Cpdela;
-% d_phi2 = gamma1*p*q - gamma2*q*r + 0.5*P.rho*P.va0^2*P.S*P.b*(Cp0 + Cpbeta*beta - Cpp*(P.b/(2*P.va0))*d_phi2 + Cpr*P.b/(2*P.va0) + Cpdelr*delta_r) + ;
 
 a_beta1 = -(P.rho*P.va0*P.S)/(2*P.mass)*P.CYbeta;
 a_beta2 = (P.rho*P.va0*P.S)/(2*P.mass)*P.CYdelr;

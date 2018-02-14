@@ -302,7 +302,6 @@ function delta_a = roll_hold(phi_c, phi, p, P)
     u_lim = 45*pi/180;
     l_lim = -45*pi/180;
     delta_a = sat(P.kp_phi*(phi_c - phi) + P.kd_phi*p,u_lim, l_lim);
-    
 end
 
 function phi_c = course_hold(chi_c, chi, r, flag, P)
@@ -312,62 +311,92 @@ function phi_c = course_hold(chi_c, chi, r, flag, P)
         integrator = 0;
         error_d1 = 0;
     end
-        
         error = chi_c - chi; % compute the current error
         integrator = integrator + (P.Ts/2)*(error + error_d1);
-        phi_c = sat(P.kp_chi*error + P.ki_chi*integrator,u_limit,l_limit);
+        phi_c = P.kp_chi*error + P.ki_chi*integrator;
         error_d1 = error;
 end
 
 function delta_e = pitch_hold(theta_c, theta, q, P)
-
+    u_lim = 45*pi/180;
+    l_lim = -45*pi/180;
+    delta_e = sat(P.kp_theta*(theta_c - theta) - P.kd_theta*q, u_lim, l_lim);
 end
 
-function theta_c = airspeed_with_pitch_hold(Va_c, Va, 1, P)
-
-end
-
-function theta_c = altitude_hold(h_c, h, 1, P)
-
-end
-
-function delta_t = airspeed_with_throttle_hold(Va_c, Va, 1, P)
-
-end
-
-
-function u = pidloop(y_c, y, flag, kp, ki, kd, limit, Ts, tau)
-
+function theta_c = airspeed_with_pitch_hold(Va_c, Va, flag, P)
     persistent integrator;
-    persistent differentiator;
     persistent error_d1;
-    if flag==1, % reset (initialize) persistent variables
-                % when flag==1
+    if flag==1
         integrator = 0;
-        differentiator = 0;
-        error_d1 = 0; % _d1 means delayed by one time step
+        error_d1 = 0;
     end
-    error = y_c - y; % compute the current error
-    integrator = integrator + (Ts/2)*(error + error_d1);
-    % update integrator
-    differentiator = (2*tau-Ts)/(2*tau+Ts)*differentiator...
-        + 2/(2*tau+Ts)*(error - error_d1);
-    % update differentiator
-    error_d1 = error; % update the error for next time through
-    % the loop
-    u = sat(... % implement PID control
-        kp * error +... % proportional term
-        ki * integrator +... % integral term
-        kd * differentiator,... % derivative term
-        limit... % ensure abs(u)<=limit
-        );
-    % implement integrator anti−windup
-    if ki~=0
-        u_unsat = kp*error + ki*integrator + kd*differentiator;
-        integrator = integrator + Ts/ki * (u - u_unsat);
-    end
-
+        error = Va_c - Va; % compute the current error
+        integrator = integrator + (P.Ts/2)*(error + error_d1);
+        theta_c = P.kp_v2*error + P.ki_v2*integrator;
+        error_d1 = error;
 end
+
+function theta_c = altitude_hold(h_c, h, flag, P)
+    persistent integrator;
+    persistent error_d1;
+    if flag==1
+        integrator = 0;
+        error_d1 = 0;
+    end
+        error = h_c - h; % compute the current error
+        integrator = integrator + (P.Ts/2)*(error + error_d1);
+        theta_c = P.kp_h*error + P.ki_h*integrator;
+        error_d1 = error;
+end
+
+function delta_t = airspeed_with_throttle_hold(Va_c, Va, flag, P)
+    persistent integrator;
+    persistent error_d1;
+    if flag==1
+        integrator = 0;
+        error_d1 = 0;
+    end
+        u_lim = 1;
+        l_lim = 0;
+        error = Va_c - Va; % compute the current error
+        integrator = integrator + (P.Ts/2)*(error + error_d1);
+        delta_t = sat(P.delta_t + P.kp_v*error + P.ki_v*integrator, u_lim, l_lim);
+        error_d1 = error;
+end
+
+
+% function u = pidloop(y_c, y, flag, kp, ki, kd, limit, Ts, tau)
+% 
+%     persistent integrator;
+%     persistent differentiator;
+%     persistent error_d1;
+%     if flag==1, % reset (initialize) persistent variables
+%                 % when flag==1
+%         integrator = 0;
+%         differentiator = 0;
+%         error_d1 = 0; % _d1 means delayed by one time step
+%     end
+%     error = y_c - y; % compute the current error
+%     integrator = integrator + (Ts/2)*(error + error_d1);
+%     % update integrator
+%     differentiator = (2*tau-Ts)/(2*tau+Ts)*differentiator...
+%         + 2/(2*tau+Ts)*(error - error_d1);
+%     % update differentiator
+%     error_d1 = error; % update the error for next time through
+%     % the loop
+%     u = sat(... % implement PID control
+%         kp * error +... % proportional term
+%         ki * integrator +... % integral term
+%         kd * differentiator,... % derivative term
+%         limit... % ensure abs(u)<=limit
+%         );
+%     % implement integrator anti−windup
+%     if ki~=0
+%         u_unsat = kp*error + ki*integrator + kd*differentiator;
+%         integrator = integrator + Ts/ki * (u - u_unsat);
+%     end
+% 
+% end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % sat

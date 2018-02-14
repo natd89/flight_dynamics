@@ -47,6 +47,7 @@ P.psi0 = X_trim(9);
 P.p0 = X_trim(10);
 P.q0 = X_trim(11);
 P.r0 = X_trim(12);
+P.vg0 = sqrt(P.u0^2 + P.v0^2 + P.w0^2);
 
 P.delta_e = U_trim(1);
 P.delta_a = U_trim(2);
@@ -143,3 +144,60 @@ P.Crdelr = P.gamma4*P.Cldelr + P.gamma8*P.Cndelr;
 [T_phi_delta_a,T_chi_phi,T_theta_delta_e,T_h_theta,T_h_Va,T_Va_delta_t,T_Va_theta,T_v_delta_r]...
     = compute_tf_model(X_trim,U_trim,P);
 
+% values used for computing PID gains
+a_phi1 = -0.5*P.rho*P.va0^2*P.S*P.b*P.Cpp*P.b/(2*P.va0);
+a_phi2 = 0.5*P.rho*P.va0^2*P.S*P.b*P.Cpdela;
+
+a_beta1 = -(P.rho*P.va0*P.S)/(2*P.mass)*P.CYbeta;
+a_beta2 = (P.rho*P.va0*P.S)/(2*P.mass)*P.CYdelr;
+
+a_theta1 = -(P.rho*P.va0^2*P.c*P.S)/(2*P.Jy)*P.Cmq*(P.c/(2*P.va0));
+a_theta2 = -(P.rho*P.va0^2*P.c*P.S)/(2*P.Jy)*P.Cmalpha;
+a_theta3 = (P.rho*P.va0^2*P.c*P.S)/(2*P.Jy)*P.Cmdele;
+
+a_V1 = (P.rho*P.va0*P.S)/(P.mass)*(P.CD0 + P.CDalpha*alpha + P.CDdele*delta_e) + (P.rho*P.Sprop)/(P.mass)*P.Cprop*P.va0;
+a_V2 = (P.rho*P.Sprop)/(P.mass)*P.Cprop*P.kmotor^2*delta_t;
+a_V3 = P.g*cos(theta-chi);
+
+% kd_phi and kp_phi parameters
+e_phi_max = 15*pi/180;
+delta_a_max = 45*pi/180;
+om_n_phi = sqrt(abs(a_hpi2)*delta_a_max/e_phi_max);
+zeta_phi = 1.0; % tune this parameter
+P.kp_phi = delta_a_max/e_phi_max*sign(a_pih2);
+P.kd_phi = (2*zeta_phi*om_n_phi-a_phi1)/(a_phi2);
+
+% kp_chi and ki_chi parameters
+W_chi = 5; % design parameter usually bigger than 5
+om_n_chi = 1/W_chi*pm_n_phi;
+P.kp_chi = 2*zeta_chi*om_n_chi*P.vg0/P.g;
+P.ki_chi = om_n_chi^2*P.vg0/P.g;
+
+% kp_theta and kd_theta parameters
+delta_e_max = 45*pi/180;
+e_theta_max = 10*pi/180;
+om_n_theta = sqrt(a_theta2 + delta_e_max/e_theta_max*abs(a_theta3));
+zeta_theta = 1.0; % tune this parameter
+P.kp_theta = delta_e_max/e_theta_max*sign(a_theta3);
+P.kd_theta = (2*zeta_theta*om_n_theta-a_theta1)/a_theta3;
+K_theta_DC = P.kp_theta*a_theta3/(a_theta2 + P.kp_theta*a_theta3);
+
+% kp_h and ki_h parameters
+W_h = 10; % usually between 5 and 15
+om_n_h = 1/W_h*om_n_theta;
+zeta_h = 1.0; % tune this parameter
+P.ki_h = om_n_h^2/(K_theta_DC*P.va0);
+P.kp_h = (2*zeta_h*om_n_h)/(K_theta_DC*P.va0);
+
+% kp_v2 and ki_v2
+W_v2 = 5; % tune this parameter
+om_n_v2 = 1/W_v2*om_n_theta;
+zeta_v2 = 1; % tune this parameter
+P.ki_v2 = om_n_v2^2/(K_theta_DC*P.g);
+P.kp_v2 = (a_V1-2*zeta_v2*om_n_v2)/(K_theta_DC*P.g);
+
+% ki_v and kp_v parameters
+om_n_v = 5; % tune this parameter
+zeta_v = 1; % tune this parameter
+P.ki_v = om_n_v^2/a_V2;
+P.kp_v = (2*zeta_v*om_n_v-a_V1)/a_V2;
