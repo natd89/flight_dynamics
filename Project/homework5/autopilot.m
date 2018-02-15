@@ -64,7 +64,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [delta, x_command] = autopilot_tuning(Va_c,h_c,chi_c,Va,h,chi,phi,theta,p,q,r,t,P)
 
-    mode = 1;
+    mode = 4;
     switch mode
         case 1, % tune the roll loop
             phi_c = chi_c; % interpret chi_c to autopilot as course command
@@ -301,7 +301,8 @@ end
 function delta_a = roll_hold(phi_c, phi, p, P)
     u_lim = 45*pi/180;
     l_lim = -45*pi/180;
-    delta_a = sat(P.kp_phi*(phi_c - phi) + P.kd_phi*p,u_lim, l_lim);
+    error = phi_c-phi;
+    delta_a = sat(P.kp_phi*error + P.kd_phi*p, u_lim, l_lim);
 end
 
 function phi_c = course_hold(chi_c, chi, r, flag, P)
@@ -330,9 +331,9 @@ function theta_c = airspeed_with_pitch_hold(Va_c, Va, flag, P)
         integrator = 0;
         error_d1 = 0;
     end
-        error = Va_c - Va; % compute the current error
+        error = Va_c - Va % compute the current error
         integrator = integrator + (P.Ts/2)*(error + error_d1);
-        theta_c = P.kp_v2*error + P.ki_v2*integrator;
+        theta_c = P.kp_v2*error + P.ki_v2*integrator
         error_d1 = error;
 end
 

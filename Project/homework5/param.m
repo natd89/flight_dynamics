@@ -166,14 +166,14 @@ a_V3 = P.g*cos(P.th0-P.chi0);
 e_phi_max = 15*pi/180;
 delta_a_max = 45*pi/180;
 om_n_phi = sqrt(abs(a_phi2)*delta_a_max/e_phi_max);
-zeta_phi = 1.0; % tune this parameter
+zeta_phi = 0.1; % tune this parameter
 P.kp_phi = delta_a_max/e_phi_max*sign(a_phi2);
 P.kd_phi = (2*zeta_phi*om_n_phi-a_phi1)/(a_phi2);
 
 % kp_chi and ki_chi parameters
-W_chi = 5; % design parameter usually bigger than 5
+W_chi = 300; % design parameter usually bigger than 5
 om_n_chi = 1/W_chi*om_n_phi;
-zeta_chi = 1; % tune this parameters
+zeta_chi = 20; % tune this parameters
 P.kp_chi = 2*zeta_chi*om_n_chi*P.vg0/P.g;
 P.ki_chi = om_n_chi^2*P.vg0/P.g;
 
@@ -181,7 +181,7 @@ P.ki_chi = om_n_chi^2*P.vg0/P.g;
 delta_e_max = 45*pi/180;
 e_theta_max = 10*pi/180;
 om_n_theta = sqrt(a_theta2 + delta_e_max/e_theta_max*abs(a_theta3));
-zeta_theta = 1.0; % tune this parameter
+zeta_theta = .5; % tune this parameter
 P.kp_theta = delta_e_max/e_theta_max*sign(a_theta3);
 P.kd_theta = (2*zeta_theta*om_n_theta-a_theta1)/a_theta3;
 K_theta_DC = P.kp_theta*a_theta3/(a_theta2 + P.kp_theta*a_theta3);
@@ -194,10 +194,10 @@ P.ki_h = om_n_h^2/(K_theta_DC*P.va0);
 P.kp_h = (2*zeta_h*om_n_h)/(K_theta_DC*P.va0);
 
 % kp_v2 and ki_v2
-W_v2 = 5; % tune this parameter
+W_v2 = 50; % tune this parameter
 om_n_v2 = 1/W_v2*om_n_theta;
-zeta_v2 = 1; % tune this parameter
-P.ki_v2 = om_n_v2^2/(K_theta_DC*P.g);
+zeta_v2 = 50; % tune this parameter
+P.ki_v2 = -om_n_v2^2/(K_theta_DC*P.g);
 P.kp_v2 = (a_V1-2*zeta_v2*om_n_v2)/(K_theta_DC*P.g);
 
 % ki_v and kp_v parameters
