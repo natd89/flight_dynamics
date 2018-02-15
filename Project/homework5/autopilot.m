@@ -71,8 +71,8 @@ function [delta, x_command] = autopilot_tuning(Va_c,h_c,chi_c,Va,h,chi,phi,theta
             delta_a = roll_hold(phi_c, phi, p, P);
             delta_r = 0; % no rudder
             % use trim values for elevator and throttle while tuning the lateral autopilot
-            delta_e = P.u_trim(1);
-            delta_t = P.u_trim(4);
+            delta_e = P.delta_e;
+            delta_t = P.delta_t;
             theta_c = 0;
         case 2, % tune the course loop
             if t==0,
@@ -83,8 +83,8 @@ function [delta, x_command] = autopilot_tuning(Va_c,h_c,chi_c,Va,h,chi,phi,theta
             delta_a = roll_hold(phi_c, phi, p, P);
             delta_r = 0; % no rudder
             % use trim values for elevator and throttle while tuning the lateral autopilot
-            delta_e = P.u_trim(1);
-            delta_t = P.u_trim(4);
+            delta_e = P.delta_e;
+            delta_t = P.delta_t;
             theta_c = 0;
         case 3, % tune the throttle to airspeed loop and pitch loop simultaneously
             theta_c = 20*pi/180 + h_c;
@@ -102,7 +102,7 @@ function [delta, x_command] = autopilot_tuning(Va_c,h_c,chi_c,Va,h,chi,phi,theta
             % use trim values for elevator and throttle while tuning the lateral autopilot
         case 4, % tune the pitch to airspeed loop 
             chi_c = 0;
-            delta_t = P.u_trim(4);
+            delta_t = P.delta_t;
             if t==0,
                 phi_c   = course_hold(chi_c, chi, r, 1, P);
                 theta_c = airspeed_with_pitch_hold(Va_c, Va, 1, P);

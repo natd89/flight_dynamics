@@ -49,6 +49,8 @@ P.q0 = X_trim(11);
 P.r0 = X_trim(12);
 P.vg0 = sqrt(P.u0^2 + P.v0^2 + P.w0^2);
 P.alpha0 = atan(P.w0/P.u0);
+P.beta0 = asin(P.v0/P.va0);
+P.chi0 = P.psi0 + P.beta0;
 
 P.delta_e = U_trim(1);
 P.delta_a = U_trim(2);
@@ -158,19 +160,20 @@ a_theta3 = (P.rho*P.va0^2*P.c*P.S)/(2*P.Jy)*P.Cmdele;
 
 a_V1 = (P.rho*P.va0*P.S)/(P.mass)*(P.CD0 + P.CDalpha*P.alpha0 + P.CDdele*P.delta_e) + (P.rho*P.Sprop)/(P.mass)*P.Cprop*P.va0;
 a_V2 = (P.rho*P.Sprop)/(P.mass)*P.Cprop*P.kmotor^2*P.delta_t;
-a_V3 = P.g*cos(P.th0-chi);
+a_V3 = P.g*cos(P.th0-P.chi0);
 
 % kd_phi and kp_phi parameters
 e_phi_max = 15*pi/180;
 delta_a_max = 45*pi/180;
-om_n_phi = sqrt(abs(a_hpi2)*delta_a_max/e_phi_max);
+om_n_phi = sqrt(abs(a_phi2)*delta_a_max/e_phi_max);
 zeta_phi = 1.0; % tune this parameter
-P.kp_phi = delta_a_max/e_phi_max*sign(a_pih2);
+P.kp_phi = delta_a_max/e_phi_max*sign(a_phi2);
 P.kd_phi = (2*zeta_phi*om_n_phi-a_phi1)/(a_phi2);
 
 % kp_chi and ki_chi parameters
 W_chi = 5; % design parameter usually bigger than 5
-om_n_chi = 1/W_chi*pm_n_phi;
+om_n_chi = 1/W_chi*om_n_phi;
+zeta_chi = 1; % tune this parameters
 P.kp_chi = 2*zeta_chi*om_n_chi*P.vg0/P.g;
 P.ki_chi = om_n_chi^2*P.vg0/P.g;
 

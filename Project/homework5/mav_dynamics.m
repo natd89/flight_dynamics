@@ -69,7 +69,7 @@ sizes = simsizes;
 sizes.NumContStates  = 12;
 sizes.NumDiscStates  = 0;
 sizes.NumOutputs     = 12;
-sizes.NumInputs      = 12;
+sizes.NumInputs      = 6;
 sizes.DirFeedthrough = 0;
 sizes.NumSampleTimes = 1;   % at least one sample time is needed
 
@@ -144,8 +144,6 @@ Jy = P.Jy;
 Jz = P.Jz;
 Jxz = P.Jxz;
     
-
-
 
 pn_dot = cos(th)*cos(psi)*u + sin(phi)*sin(th)*cos(psi)-cos(phi)*sin(psi)*v + cos(phi)*sin(th)*cos(psi)+sin(phi)*sin(psi)*w;
 pe_dot = cos(th)*sin(psi)*u + sin(phi)*sin(th)*sin(psi)+cos(phi)*cos(psi)*v + cos(phi)*sin(th)*sin(psi)-sin(phi)*cos(psi)*w;
