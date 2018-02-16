@@ -1,7 +1,7 @@
 % initial states
 
-Va = 17;
-gamma = 0*pi/180;
+Va = 35;
+gamma = 30*pi/180;
 R = Inf;
 
 DX0 = [0; 0; -Va*sin(gamma); 0; 0; 0; 0; 0; Va/R; 0; 0; 0];
@@ -37,7 +37,7 @@ B_lon = E1_lon'*B*E2_lon;
 P.va0 = Va;
 P.pn0 = 0;
 P.pe0 = 0;
-P.pd0 = -100;
+P.pd0 = 0;
 P.u0 = X_trim(4);
 P.v0 = X_trim(5);
 P.w0 = X_trim(6);
@@ -57,7 +57,7 @@ P.delta_a = U_trim(2);
 P.delta_r = U_trim(3);
 P.delta_t = U_trim(4);
 
-P.mass = 13.5;
+P.mass = 25;
 P.g = 9.81;
 P.Jx = 0.8244;
 P.Jy = 1.135;
@@ -80,7 +80,7 @@ P.CDalpha = 0.30;
 P.Cmalpha = -0.38;
 P.CLq = 0;
 P.CDq = 0;
-P.Cmq = -0.5;
+P.Cmq = -3.6;
 P.CLdele = -0.36;
 P.CDdele = 0;
 P.Cmdele = -0.5;
@@ -112,7 +112,7 @@ P.Cldelr = 0.105;
 P.lu = 200;
 P.lv = P.lu;
 P.lw = 50;
-P.Ts = 0.005;
+P.Ts = 0.01;
 P.sigmau = 0.0;
 P.sigmav = 0.0;
 P.sigmaw = 0.0;
@@ -162,46 +162,117 @@ a_V1 = (P.rho*P.va0*P.S)/(P.mass)*(P.CD0 + P.CDalpha*P.alpha0 + P.CDdele*P.delta
 a_V2 = (P.rho*P.Sprop)/(P.mass)*P.Cprop*P.kmotor^2*P.delta_t;
 a_V3 = P.g*cos(P.th0-P.chi0);
 
-% kd_phi and kp_phi parameters
-e_phi_max = 15*pi/180;
-delta_a_max = 45*pi/180;
-om_n_phi = sqrt(abs(a_phi2)*delta_a_max/e_phi_max);
-zeta_phi = 0.1; % tune this parameter
-P.kp_phi = delta_a_max/e_phi_max*sign(a_phi2);
-P.kd_phi = (2*zeta_phi*om_n_phi-a_phi1)/(a_phi2);
+% low level autopilot gains
+P.tau = 5;  % gain on dirty derivative
+P.altitude_take_off_zone = 10;
+P.altitude_hold_zone = 10;
+P.theta_c_max = 30*pi/180; % maximum pitch angle command
+P.climb_out_trottle = 0.61;
+P.phi_max = 45*pi/180;
 
-% kp_chi and ki_chi parameters
-W_chi = 300; % design parameter usually bigger than 5
-om_n_chi = 1/W_chi*om_n_phi;
-zeta_chi = 20; % tune this parameters
-P.kp_chi = 2*zeta_chi*om_n_chi*P.vg0/P.g;
-P.ki_chi = om_n_chi^2*P.vg0/P.g;
+% select gains for roll loop
+    % get transfer function data for delta_a to phi
+    [num,den]=tfdata(T_phi_delta_a,'v');
+    a_phi2 = num(3);
+    a_phi1 = den(2);
+    % maximum possible aileron command
+    delta_a_max = 45*pi/180;
+    % Maximum anticipated roll error
+    phi_max = 20*pi/180;
+    % pick damping ratio for roll loop
+    zeta_roll = 2;
+    
+    % set roll control gains based on zeta and phi_max
+    P.roll_kp = delta_a_max/phi_max;
+    wn_roll = sqrt(P.roll_kp*a_phi2);
+    P.roll_kd = (2*zeta_roll*wn_roll - a_phi1)/a_phi2;
+    %P.roll_kd = P.roll_kd+.2; % add extra roll damping
+    P.roll_ki = 0;
+    
+% select gains for course loop
+   zeta_course = 0.9;
+   wn_course = wn_roll/8;
+   P.course_kp = 2*zeta_course*wn_course*P.va0/P.g;
+   P.course_ki = wn_course^2*P.va0/P.g;
+   P.course_kd = 0;
+   
+% select gains for sideslip hold
+    % get transfer function data for delta_r to vr
+    [num,den]=tfdata(T_v_delta_r,'v');
+    a_beta2 = num(2);
+    a_beta1 = den(2);
+    % maximum possible rudder command
+    delta_r_max = 20*pi/180;
+    % Roll command when delta_r_max is achieved
+    vr_max = 3;
+    % pick natural frequency to achieve delta_a_max for step of phi_max
+    zeta_beta = 0.707;
+    P.beta_kp = delta_r_max/vr_max;
+    wn_beta = (a_beta2*P.beta_kp+a_beta1)/2/zeta_beta;
+    P.beta_ki = 0;%wn_beta^2/a_beta2;
+    P.beta_kd = 0;
 
-% kp_theta and kd_theta parameters
-delta_e_max = 45*pi/180;
-e_theta_max = 10*pi/180;
-om_n_theta = sqrt(a_theta2 + delta_e_max/e_theta_max*abs(a_theta3));
-zeta_theta = .5; % tune this parameter
-P.kp_theta = delta_e_max/e_theta_max*sign(a_theta3);
-P.kd_theta = (2*zeta_theta*om_n_theta-a_theta1)/a_theta3;
-K_theta_DC = P.kp_theta*a_theta3/(a_theta2 + P.kp_theta*a_theta3);
+   
+% select gains for the pitch loop
+   % get transfer function delta_e to theta
+   [num,den]=tfdata(T_theta_delta_e,'v');
+   a_theta1 = den(2);
+   a_theta2 = den(3);
+   a_theta3 = num(3);
+   % maximum possible elevator command
+   delta_e_max = 45*pi/180;
+   % Pitch command when delta_e_max is achieved
+   theta_max = 10*pi/180;
+   % pick natural frequency to achieve delta_e_max for step of theta_max
+   zeta_pitch = 0.9;
+   % set control gains based on zeta and wn
+   P.pitch_kp = -delta_e_max/theta_max;
+   wn_pitch = sqrt(a_theta2+P.pitch_kp*a_theta3);
+   P.pitch_kd = (2*zeta_pitch*wn_pitch - a_theta1)/a_theta3;
+   P.pitch_ki = 0.0;
+   P.K_theta_DC = P.pitch_kp*a_theta3/(a_theta2+P.pitch_kp*a_theta3);
 
-% kp_h and ki_h parameters
-W_h = 10; % usually between 5 and 15
-om_n_h = 1/W_h*om_n_theta;
-zeta_h = 1.0; % tune this parameter
-P.ki_h = om_n_h^2/(K_theta_DC*P.va0);
-P.kp_h = (2*zeta_h*om_n_h)/(K_theta_DC*P.va0);
-
-% kp_v2 and ki_v2
-W_v2 = 50; % tune this parameter
-om_n_v2 = 1/W_v2*om_n_theta;
-zeta_v2 = 50; % tune this parameter
-P.ki_v2 = -om_n_v2^2/(K_theta_DC*P.g);
-P.kp_v2 = (a_V1-2*zeta_v2*om_n_v2)/(K_theta_DC*P.g);
-
-% ki_v and kp_v parameters
-om_n_v = 5; % tune this parameter
-zeta_v = 1; % tune this parameter
-P.ki_v = om_n_v^2/a_V2;
-P.kp_v = (2*zeta_v*om_n_v-a_V1)/a_V2;
+% select gains for altitude loop
+   zeta_altitude = .9;%.707;
+   wn_altitude = wn_pitch/40;
+   P.altitude_kp = 2*zeta_altitude*wn_altitude/P.K_theta_DC/P.va0;
+   P.altitude_ki = wn_altitude^2/P.K_theta_DC/P.va0;
+%   P.altitude_kp = 0.0114;
+%   P.altitude_ki = 0.0039;
+   P.altitude_kd = 0;%-.001;
+ 
+% airspeed hold using pitch
+   [num,den]=tfdata(T_Va_theta,'v');
+   a_V1 = den(2);
+   zeta_airspeed_pitch = 1;%0.707;
+   wn_airspeed_pitch = wn_pitch/10;
+   P.airspeed_pitch_kp = (a_V1-2*zeta_airspeed_pitch*wn_airspeed_pitch)/P.K_theta_DC/P.g;
+   P.airspeed_pitch_ki = -wn_airspeed_pitch^2/P.K_theta_DC/P.g;
+ 
+% airspeed hold using throttle
+   [num,den]=tfdata(T_Va_delta_t,'v');
+   a_Vt1 = den(2);
+   a_Vt2 = num(2);
+   zeta_airspeed_throttle = 2;%0.707;
+%    wn_airspeed_throttle = 5;   % a value of 5 causes instability...
+   wn_airspeed_throttle = 3;
+   P.airspeed_throttle_kp = (2*zeta_airspeed_throttle*wn_airspeed_throttle-a_Vt1)/a_Vt2;
+   P.airspeed_throttle_ki = wn_airspeed_throttle^2/a_Vt2;
+%   P.airspeed_throttle_integrator_gain = a_Vt1/a_Vt2/P.airspeed_throttle_ki;
+ 
+% gains for slideslip
+   P.sideslip_kp = .1;
+   P.sideslip_kd = -.5;
+   P.sideslip_ki = 0;
+ 
+% TECS gains
+    % throttle (unitless)
+    P.TECS_E_kp = 1;
+    P.TECS_E_ki = .5;
+  
+    % pitch command (unitless)
+    P.TECS_L_kp = 1;
+    P.TECS_L_ki = .1;
+    
+    % saturated altitude error
+    P.TECS_h_error_max = 10; % meters

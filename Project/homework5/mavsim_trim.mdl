@@ -142,8 +142,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "nmd89"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Feb 15 14:55:34 2018"
-  RTWModifiedTimeStamp	  440607283
+  LastModifiedDate	  "Fri Feb 16 10:35:59 2018"
+  RTWModifiedTimeStamp	  440677935
   ModelVersionFormat	  "1.%<AutoIncrement:70>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
@@ -289,13 +289,13 @@ Model {
 	  DisabledProps		  []
 	  Description		  ""
 	  Decimation		  "1"
-	  ExternalInput		  "[t, u]"
+	  ExternalInput		  "[0 -0.0412640089952827 -4.99737127804812e-23 8.98112124817126e-23 0.5434941917657]"
 	  FinalStateName	  "xFinal"
-	  InitialState		  "xInitial"
+	  InitialState		  "[]"
 	  LimitDataPoints	  off
 	  MaxDataPoints		  "1000"
-	  LoadExternalInput	  off
-	  LoadInitialState	  off
+	  LoadExternalInput	  on
+	  LoadInitialState	  on
 	  SaveFinalState	  off
 	  SaveCompleteFinalSimState off
 	  SaveFormat		  "Dataset"
@@ -343,14 +343,14 @@ Model {
 	  BlockReduction	  on
 	  BooleanDataType	  on
 	  ConditionallyExecuteInputs on
-	  DefaultParameterBehavior "Tunable"
+	  DefaultParameterBehavior "Inlined"
 	  UseDivisionForNetSlopeComputation "off"
 	  UseFloatMulNetSlope	  off
 	  DefaultUnderspecifiedDataType	"double"
 	  UseSpecifiedMinMax	  off
 	  InlineInvariantSignals  off
 	  OptimizeBlockIOStorage  on
-	  BufferReuse		  on
+	  BufferReuse		  off
 	  EnhancedBackFolding	  off
 	  CachingGlobalReferences off
 	  GlobalBufferReuse	  on
@@ -463,7 +463,7 @@ Model {
 	  StateNameClashWarn	  "none"
 	  SimStateInterfaceChecksumMismatchMsg "warning"
 	  SimStateOlderReleaseMsg "error"
-	  InitInArrayFormatMsg	  "warning"
+	  InitInArrayFormatMsg	  "none"
 	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
 	  NonBusSignalsTreatedAsBus "none"
@@ -1085,7 +1085,7 @@ Model {
   System {
     Name		    "mavsim_trim"
     Location		    [709, 186, 1657, 1262]
-    Open		    off
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
