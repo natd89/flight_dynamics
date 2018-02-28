@@ -42,8 +42,8 @@ function y = sensors(uu, P)
     eta_accel_y = randn*0.0025;
     eta_accel_z = randn*0.0025;
 
-    beta_abs_pres = 125;
-    eta_abs_pres = randn*2;
+    beta_diff_pres = 20;
+    eta_diff_pres = randn*2;
 
     % simulate rate gyros (units are rad/sec)
     y_gyro_x = p + eta_gyro_x;
@@ -56,8 +56,8 @@ function y = sensors(uu, P)
     y_accel_z = F_z/P.mass - P.g*cos(theta)*cos(phi) + eta_accel_z;
 
     % simulate pressure sensors
-    y_static_pres = P.P0 * (P.T0/(P.T0+P.L0*pd))^(P.g*P.Mol/(P.R*P.L0));
-    y_diff_pres = P.rho*P.g*pd + beta_abs_pres + eta_abs_pres;
+    y_static_pres = P.P0 * (P.T0/(P.T0+P.L0*pd))^(P.g*P.Mol/(P.R*P.L0)) - P.P0;
+    y_diff_pres = P.rho*Va^2/2 + beta_diff_pres + eta_diff_pres;
 
     % construct total output
     y = [...

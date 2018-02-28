@@ -39,7 +39,9 @@ function xhat = estimate_states(uu, P)
    persistent lpf_pe_gps
    persistent lpf_chi_gps
    persistent lpf_Vg_gps
-   
+   persistent alpha
+   persistent alpha1
+   persistent alphatheta
    
    
    % rename inputs
@@ -59,11 +61,13 @@ function xhat = estimate_states(uu, P)
    t             = uu(14);
    
     lpf_a = 50;
-    lpf_a1 = 20;
+    lpf_a1 = 10;
+    lpf_th = 10;
     if t==0
 
         alpha = exp(-lpf_a*P.Ts);
         alpha1 = exp(-lpf_a1*P.Ts);
+        alphatheta = exp(-lpf_th*P.Ts);
         lpf_x_gyro = 0;
         lpf_y_gyro = 0;
         lpf_z_gyro = 0;
@@ -74,41 +78,43 @@ function xhat = estimate_states(uu, P)
         lpf_z_accel = 0;
         lpf_pn_gps = P.pn0;
         lpf_pe_gps = P.pe0;
-        
-        
-    else
-   
-        lpf_x_gyro = alpha*lpf_x_gyro + (1-alpha)*y_gyro_x;
-        lpf_y_gyro = alpha*lpf_y_gyro + (1-alpha)*y_gyro_y;
-        lpf_z_gyro = alpha*lpf_z_gyro + (1-alpha)*y_gyro_z;
-        
-        lpf_x_accel = alpha1*lpf_x_accel + (1-alpha1)*y_accel_x;
-        lpf_y_accel = alpha1*lpf_y_accel + (1-alpha1)*y_accel_y;
-        lpf_z_accel = alpha1*lpf_z_accel + (1-alpha1)*y_accel_z;
-        
-        lpf_static = alpha*lpf_static + (1-alpha)*y_static_pres;
-        lpf_diff = alpha*lpf_diff + (1-alpha)*y_diff_pres;
-        
-        lpf_pn_gps = alpha*lpf_pn_gps + (1-alpha)*y_gps_n;
-        lpf_pe_gps = alpha*lpf_pe_gps + (1-alpha)*y_gps_e;
-        
-        lpf_chi_gps = alpha*lpf_chi_gps + (1-alpha)*y_gps_course;
-        lpf_Vg_gps = alpha*lpf_Vg_gps + (1-alpha)*y_gps_Vg;
+        lpf_chi_gps = P.psi0;
+        lpf_Vg_gps = P.va0;       
         
     end
+   
+    lpf_x_gyro = alpha*lpf_x_gyro + (1-alpha)*y_gyro_x;
+    lpf_y_gyro = alpha*lpf_y_gyro + (1-alpha)*y_gyro_y;
+    lpf_z_gyro = alpha*lpf_z_gyro + (1-alpha)*y_gyro_z;
+
+    lpf_x_accel = alpha1*lpf_x_accel + (1-alpha1)*y_accel_x;
+    lpf_y_accel = alpha1*lpf_y_accel + (1-alpha1)*y_accel_y;
+    lpf_z_accel = alpha1*lpf_z_accel + (1-alpha1)*y_accel_z;
+
+    lpf_static = alpha*lpf_static + (1-alpha)*y_static_pres;
+    lpf_diff = alpha*lpf_diff + (1-alpha)*y_diff_pres;
+
+    lpf_pn_gps = alpha*lpf_pn_gps + (1-alpha)*y_gps_n;
+    lpf_pe_gps = alpha*lpf_pe_gps + (1-alpha)*y_gps_e;
+
+    lpf_chi_gps = alphatheta*lpf_chi_gps + (1-alphatheta)*y_gps_course;
+    lpf_Vg_gps = alpha*lpf_Vg_gps + (1-alpha)*y_gps_Vg;
+        
         
     phat = lpf_x_gyro;
     qhat = lpf_y_gyro;
     rhat = lpf_z_gyro;
     hhat = lpf_static/P.rho/P.g;
     Vahat = sqrt(2/P.rho*lpf_diff);
-    phihat = atan2(lpf_y_accel/lpf_z_accel);
+    phihat = atan(lpf_y_accel/lpf_z_accel);
     thetahat = asin(lpf_x_accel/P.g);
     pnhat = lpf_pn_gps;
     pehat = lpf_pe_gps;
     chihat = lpf_chi_gps;
     Vghat = lpf_Vg_gps;
     psihat = chihat;
+    wnhat = 0;
+    wehat = 0;
     
     
     % not estimating these states 

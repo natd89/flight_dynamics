@@ -48,7 +48,7 @@ function y = gps(uu, P)
     % construct North, East, and altitude GPS measurements
     y_gps_n = pn + vn;
     y_gps_e = pe + ve; 
-    y_gps_h = pd + vh; 
+    y_gps_h = -pd + vh; 
     
     Vn = Va*cos(psi)+wn;
     Ve = Va*sin(psi)+we;
@@ -58,7 +58,7 @@ function y = gps(uu, P)
     
     % construct groundspeed and course measurements
     y_gps_Vg     = sqrt(Vn^2 + Ve^2) + sigma_vg^2;
-    y_gps_course = atan2(Vn,Ve)+sigma_chi^2;
+    y_gps_course = atan2(Ve,Vn)+sigma_chi^2;
 
     % construct total output
     y = [...
