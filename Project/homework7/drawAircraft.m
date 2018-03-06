@@ -3,6 +3,7 @@ function drawAirCraft(u,V,F)
 persistent handle
 persistent pnts 
 persistent faces
+persistent fig1
 
 coder.extrinsic('patch')
 pn = u(1);
@@ -22,7 +23,7 @@ if t==0
        1,0,0;
        0,0,-1];
    pnts_f = R*pnts';
-   figure(1)
+   fig1 = figure(1)
    clf
    handle = patch('Vertices',pnts_f','Faces',faces,'FaceColor','b');
    axis(1*[-5,5,-5,5,-5,5]);
@@ -49,6 +50,7 @@ else
     
     pnts_f = R*pnts_t'; 
    set(handle,'Vertices',pnts_f','Faces',faces);
+   set(0,'CurrentFigure',fig1)
    axis([-pe-1,-pe+1,pn-1,pn+1,-pd-1,-pd+1]);
 %    axis([pn-1,pn+1,pe-1,pe+1,pd-1,pd+1]);
 end

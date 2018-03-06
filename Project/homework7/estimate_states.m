@@ -91,15 +91,15 @@ function xhat = estimate_states(uu, P)
         xhat_att = [phi;theta];
         xhat_GPS = [pn;pe;Vg;chi;psi];
         Q_att = eye(2)*1e-9; % model uncertainty
-        Q_GPS = [1, 0, 0, 0, 0;... % model uncertainty
-                 0, 1, 0, 0, 0;...
-                 0, 0, 1, 0, 0;...
-                 0, 0, 0, 1, 0;...
-                 0, 0, 0, 0, .0001];
+        Q_GPS = [5, 0, 0, 0, 0;... % model uncertainty
+                 0, 5, 0, 0, 0;...
+                 0, 0, 5, 0, 0;...
+                 0, 0, 0, 0.08, 0;...
+                 0, 0, 0, 0, .08];
         S_att = eye(2); % attitude covariance matrix
         S_GPS = eye(5); % GPS covariance matrix
-        R_att = [1e-3, 1e-3, 1e-3]; % sensor model uncertainty
-        R_GPS = [15, 15, 1e-3, 1e-3]; % sensor model uncertainty
+        R_att = [1e-1, 1e-1, 1e-1]; % sensor model uncertainty
+        R_GPS = [10, 10, 5, 0.08]; % sensor model uncertainty
         %***********************%
 
         for i=1:N
@@ -117,8 +117,8 @@ function xhat = estimate_states(uu, P)
             %*****GPS Smoothing*****%
             %***********************%
             psidot = q*(sin(phi)/cos(theta))+r*(cos(phi)/cos(theta));
-            Vgdot = ((Va*cos(psi)+wn)*(-Va*psidot*sin(psi))+(Va*sin(psi)+we)*(Va*psidot*cos(psi)))/(Vg);
-            dVgdot_dpsi = (-psidot*Va*(wn*cos(psi)+we+sin(psi)))/(Vg);
+            Vgdot = Va/Vg*(-wn*sin(psi)+we*cos(psi));
+            dVgdot_dpsi = -psidot*Va*cos(chi-psi);
             dVgdot_dchi = psidot*Va*cos(chi-psi);
             dchidot_dVg = (-P.g/Vg^2)*tan(phi)*cos(chi-psi);
             dchidot_dchi = (-P.g/Vg)*tan(phi)*sin(chi-psi);
@@ -174,15 +174,15 @@ function xhat = estimate_states(uu, P)
             %*****GPS Smoothing*****%
             %***********************%
             psidot = q*(sin(phi)/cos(theta))+r*(cos(phi)/cos(theta));
-            Vgdot = Va/Vg*psidot*(-wn*sin(psi)+we*cos(psi));
-            dVgdot_dpsi = (-psidot*Va*(wn*cos(psi)+we+sin(psi)))/(Vg);
+            Vgdot = Va/Vg*(-wn*sin(psi)+we*cos(psi));
+            dVgdot_dpsi = -psidot*Va*cos(chi-psi);
             dVgdot_dchi = psidot*Va*cos(chi-psi);
             dchidot_dVg = (-P.g/Vg^2)*tan(phi)*cos(chi-psi);
             dchidot_dchi = (-P.g/Vg)*tan(phi)*sin(chi-psi);
             dchidot_dpsi = (P.g/Vg)*tan(phi)*sin(chi-psi);            
             f_GPS = [Vg*cos(chi);...
                      Vg*sin(chi);...
-                     Vgdot;...
+                     psidot*Va*sin(chi-psi);...
                      (P.g/Vg)*tan(phi)*cos(chi-psi);...
                      q*(sin(phi)/cos(theta)) + r*(cos(phi)/cos(theta))];
             xhat_GPS = xhat_GPS + (Tout/N)*f_GPS;
@@ -190,8 +190,8 @@ function xhat = estimate_states(uu, P)
                  0,  0,  sin(chi), Vg*cos(chi), 0;...
                  0,  0,  -Vgdot/Vg, dVgdot_dchi, dVgdot_dpsi;...
                  0,  0,  dchidot_dVg, dchidot_dchi, dchidot_dpsi;...
-                 0,  0,  0,   0,   0];
-             S_GPS = S_GPS + (Tout/N)*(A*S_GPS + S_GPS*A' + Q_GPS);
+                 0,  0,  0,   0,   0];                  
+            S_GPS = S_GPS + (Tout/N)*(A*S_GPS + S_GPS*A' + Q_GPS);
             %***********************%
         end
         
@@ -255,7 +255,7 @@ function xhat = estimate_states(uu, P)
     
     pnhat = xhat_GPS(1);
     pehat = xhat_GPS(2);
-    hhat = y_static_pres/P.rho/P.g;
+    hhat = y_static_pres/P.rho/P.g + 3;
     Vahat = sqrt(2/P.rho*y_diff_pres);
     phihat = xhat_att(1);
     thetahat = xhat_att(2);

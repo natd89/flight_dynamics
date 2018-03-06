@@ -57,8 +57,9 @@ function y = sensors(uu, P)
 
     % simulate pressure sensors
     y_static_pres = P.P0 * (P.T0/(P.T0+P.L0*pd))^(P.g*P.Mol/(P.R*P.L0)) - P.P0;
-    y_diff_pres = P.rho*Va^2/2 + beta_diff_pres + eta_diff_pres;
-
+%     y_diff_pres = P.rho*Va^2/2 + beta_diff_pres + eta_diff_pres;
+    y_diff_pres = P.rho*Va^2/2 + eta_diff_pres;
+    
     % construct total output
     y = [...
         y_gyro_x;...
