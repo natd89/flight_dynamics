@@ -94,12 +94,12 @@ function xhat = estimate_states(uu, P)
         Q_GPS = [5, 0, 0, 0, 0;... % model uncertainty
                  0, 5, 0, 0, 0;...
                  0, 0, 5, 0, 0;...
-                 0, 0, 0, 0.08, 0;...
-                 0, 0, 0, 0, .08];
+                 0, 0, 0, 0.002, 0;...
+                 0, 0, 0, 0, .002];
         S_att = eye(2); % attitude covariance matrix
         S_GPS = eye(5); % GPS covariance matrix
         R_att = [1e-1, 1e-1, 1e-1]; % sensor model uncertainty
-        R_GPS = [10, 10, 5, 0.08]; % sensor model uncertainty
+        R_GPS = [10, 10, 1, 1]; % sensor model uncertainty
         %***********************%
 
         for i=1:N
@@ -111,6 +111,8 @@ function xhat = estimate_states(uu, P)
             xhat_att = xhat_att + Tout/N*f_att;
             A = [q*cos(phi)*tan(theta)-r*sin(phi)*tan(theta), (q*sin(phi)-r*cos(phi))/(cos(theta)^2);...
                  -q*sin(phi)-r*cos(phi), 0];
+            phi = xhat_att(1);
+            theta = xhat_att(2);
             S_att = S_att + (Tout/N)*(A*S_att + S_att*A' + Q_att);               
             %***********************%
             
@@ -162,6 +164,8 @@ function xhat = estimate_states(uu, P)
             f_att = [p+q*sin(phi)*tan(theta)+r*cos(phi)*tan(theta);...
                  q*cos(phi)-r*sin(phi)];
             xhat_att = xhat_att + Tout/N*f_att;
+            phi = xhat_att(1);
+            theta = xhat_att(2);
             A = [q*cos(phi)*tan(theta)-r*sin(phi)*tan(theta), (q*sin(phi)-r*cos(phi))/(cos(theta)^2);...
                  -q*sin(phi)-r*cos(phi), 0];
             S_att = S_att + (Tout/N)*(A*S_att + S_att*A' + Q_att);               
