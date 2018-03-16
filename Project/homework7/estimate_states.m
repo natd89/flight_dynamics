@@ -94,12 +94,12 @@ function xhat = estimate_states(uu, P)
         Q_GPS = [5, 0, 0, 0, 0;... % model uncertainty
                  0, 5, 0, 0, 0;...
                  0, 0, 5, 0, 0;...
-                 0, 0, 0, 0.002, 0;...
-                 0, 0, 0, 0, .002];
+                 0, 0, 0, 0.0002, 0;...
+                 0, 0, 0, 0, .0002];
         S_att = eye(2); % attitude covariance matrix
         S_GPS = eye(5); % GPS covariance matrix
         R_att = [1e-1, 1e-1, 1e-1]; % sensor model uncertainty
-        R_GPS = [10, 10, 1, 1]; % sensor model uncertainty
+        R_GPS = [10, 10, 1, .7]; % sensor model uncertainty
         %***********************%
 
         for i=1:N
