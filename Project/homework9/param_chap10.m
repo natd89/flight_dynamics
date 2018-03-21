@@ -52,6 +52,8 @@ P.alpha0 = atan(P.w0/P.u0);
 P.beta0 = asin(P.v0/P.va0);
 P.chi0 = P.psi0 + P.beta0;
 
+P.gamma_max = .707;
+
 P.delta_e = U_trim(1);
 P.delta_a = U_trim(2);
 P.delta_r = U_trim(3);
@@ -293,9 +295,9 @@ P.phi_max = 45*pi/180;
     
     
 % simplified version gains
-P.bchidot = 1;
-P.bchi = 1;
-P.bphi = 1;
-P.bhdot = 1;
-P.bh = 1;
-P.bVa = 1;
+P.b_chidot = 1;
+P.b_chi = 1;
+P.b_phi = 1;
+P.b_hdot = 1;
+P.b_h = 1;
+P.b_Va = 1;
