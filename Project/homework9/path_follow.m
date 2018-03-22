@@ -58,14 +58,14 @@ function out = path_follow(in,P)
   switch flag,
       case 1, % follow straight line path specified by r and q
           
-          n = cross(q_path,[0,0,1])/norm(cross(q_path,[0,0,1]));
-          e = [pn,pe,h]-r_path;
+          n = cross(q_path',[0,0,1])/norm(cross(q_path',[0,0,1]));
+          e = [pn,pe,h]-r_path';
           s = e-dot(e,n)*n;
           
-          chi_inf = pi;
-          k_path = 0.1;
+          chi_inf = pi/3;
+          k_path = 0.05;
           
-          h_c = r_path(3) + sqrt(s(1)^2*s(2)^2)*(q_path(3)/(q_path(1)^2+q_path(2)^2));
+          h_c = -r_path(3) + sqrt(s(1)^2+s(2)^2)*(q_path(3)/sqrt(q_path(1)^2+q_path(2)^2));
           
           chi_q = atan2(q_path(2),q_path(1));
           
@@ -77,7 +77,7 @@ function out = path_follow(in,P)
              chi_q = chi_q - 2*pi; 
           end
           
-          epy = -sin(chi_q*(pn-r_path(1)))+cos(chi_q*(pe-r_path(2)));
+          epy = -sin(chi_q)*(pn-r_path(1))+cos(chi_q)*(pe-r_path(2));
           
           chi_c = chi_q-chi_inf*2/pi*atan(k_path*epy);
           
@@ -89,7 +89,7 @@ function out = path_follow(in,P)
           d = sqrt((pn-c_orbit(1))^2+(pe-c_orbit(2))^2);
           phi_bar = atan2(pe-c_orbit(2),pn-c_orbit(1));
           
-          k_orbit = 0.5;
+          k_orbit = 5.0;
           
           while (phi_bar-chi) < -pi
              phi_bar = phi_bar+2*pi; 
@@ -101,7 +101,7 @@ function out = path_follow(in,P)
           
           chi_c = phi_bar + lam_orbit*(pi/2+atan(k_orbit*((d-rho_orbit)/rho_orbit)));
           
-          phi_ff = 0;
+          phi_ff = atan(Va^2/(P.g*rho_orbit))*lam_orbit;
   end
   
   % command airspeed equal to desired airspeed
