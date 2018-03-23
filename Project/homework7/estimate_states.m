@@ -171,10 +171,7 @@ function xhat = estimate_states(uu, P)
             S_att = S_att + (Tout/N)*(A*S_att + S_att*A' + Q_att);               
             %***********************%
             
-            if t==6
-               o=1; 
-            end
-            
+
             %*****GPS Smoothing*****%
             %***********************%
             psidot = q*(sin(phi)/cos(theta))+r*(cos(phi)/cos(theta));

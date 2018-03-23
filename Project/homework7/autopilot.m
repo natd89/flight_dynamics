@@ -188,6 +188,7 @@ function [delta, x_command] = autopilot_uavbook(Va_c,h_c,chi_c,phi_c_ff,Va,h,chi
     persistent initialize_integrator;
     % initialize persistent variable
     if t==0,
+        % h = -P.pd0; % a hack to make sure that h starts at P.pd0 and not 0 everytime
         if h<=P.altitude_take_off_zone,     
             altitude_state = 1;
         elseif h<=h_c-P.altitude_hold_zone, 

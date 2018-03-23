@@ -55,7 +55,8 @@ P.chi0 = P.psi0 + P.beta0;
 P.delta_e = U_trim(1);
 P.delta_a = U_trim(2);
 P.delta_r = U_trim(3);
-P.delta_t = U_trim(4);
+% P.delta_t = U_trim(4);
+P.delta_t = .5;
 
 P.mass = 25;
 P.g = 9.81;
