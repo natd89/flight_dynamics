@@ -60,7 +60,7 @@ function out = path_manager_line(in,P,start_of_simulation)
   if start_of_simulation || isempty(waypoints_old),
       waypoints_old = zeros(5,P.size_waypoint_array);
       flag_need_new_waypoints = 0;
-     
+      ptr_a = 2;  
   end
   
   % if the waypoints have changed, update the waypoint pointer
@@ -70,11 +70,13 @@ function out = path_manager_line(in,P,start_of_simulation)
       flag_need_new_waypoints = 0;
   end
   
+  i = ptr_a;
+  
   % construct output for path follower
   flag   = 1;                  % following straight line path
   Va_d   = P.va0; % desired airspeed along waypoint path
-  r      = waypoints(i);
-  q      = waypoints(i)-waypoints(i+1);
+  r      = waypoints(i-1);
+  q      = waypoints(i)-waypoints(i-1);
   q_prev = q/norm(q);
   q = waypoints(i+1)-waypoints(i);
   q_next = q/norm(q);
@@ -85,13 +87,16 @@ function out = path_manager_line(in,P,start_of_simulation)
   rho    = 0;          % not used for waypoint path
   lambda = 0;          % not used for waypoint path
   
-  if (p-r)'*n>=0
-     i = i + 1;
-  end
-  
   out = [flag; Va_d; r; q; c; rho; lambda; state; flag_need_new_waypoints];
 
   % determine if next waypoint path has been reached, and rotate ptrs if
   % necessary
+  if (p-r)'*n>=0
+     ptr_a = ptr_a + 1;
+  end
+  
+  if i==num_waypoints
+      ptr_a = 2;
+  end
   
 end
