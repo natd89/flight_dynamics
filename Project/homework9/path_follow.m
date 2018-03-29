@@ -63,7 +63,7 @@ function out = path_follow(in,P)
           s = e-dot(e,n)*n;
           
           chi_inf = pi/3;
-          k_path = 0.05;
+          k_path = 5.0;
           
           h_c = -r_path(3) + sqrt(s(1)^2+s(2)^2)*(q_path(3)/sqrt(q_path(1)^2+q_path(2)^2));
           
