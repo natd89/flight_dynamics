@@ -49,7 +49,7 @@ function out = path_manager_fillet(in,P,start_of_simulation)
   state     =  in(1+NN:16+NN);
   NN = NN + 16;
   t         = in(1+NN);
-  R = 150;
+  R = P.R_min;
   p = [pn; pe; -h];
 
 

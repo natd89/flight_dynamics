@@ -84,25 +84,26 @@ function out = path_manager_dubins(in,P,start_of_simulation)
   % define transition state machine
   switch state_transition,
       case 0, % beginning of simulation
-          flag   = ;
-          Va_d   = ;
-          r      = ;
-          q      = ;
-          c      = ;
-          rho    = ;
-          lambda = ;
+          flag   = 1;
+          Va_d   = P.va0;
+          r      = dubinspath.ps;
+          q      = dubinspath.q1;
+          c      = dubinspath.cs;
+          rho    = dubinspath.R;
+          lambda = dubinspath.lams;
           if flag_first_time_in_state,
               flag_first_time_in_state =0;
           end
       
       case 1, % follow first orbit on Dubins path until intersect H1
-          flag   = ;  % following orbit
-          Va_d   = ; % desired airspeed along waypoint path
-          r      = ;
-          q      = ;
-          c      = ;
-          rho    = ;
-          lambda = ;
+          flag   = 2;  % following orbit
+          Va_d   = P.va0; % desired airspeed along waypoint path
+          r      = dubinspath.ps;
+          q      = [1; 0; 0];     % not used for orbit
+          q      = q/norm(q);       
+          c      = dubinspath.cs;
+          rho    = dubinspath.R;
+          lambda = dubinspath.lams;
           
           if ((p-dubinspath.w1)'*dubinspath.q1 >= 0)&&(flag_first_time_in_state==1), % start in H1
               state_transition = 2;
@@ -115,29 +116,29 @@ function out = path_manager_dubins(in,P,start_of_simulation)
           end
           
       case 2, % follow first orbit on Dubins path until on right side of H1
-          flag   = ;  % following orbit
-          Va_d   = ; % desired airspeed along waypoint path
-          r      = ;
-          q      = ;
-          c      = ;
-          rho    = ;
-          lambda = ;
+          flag   = 2;  % following orbit
+          Va_d   = P.va0; % desired airspeed along waypoint path
+          r      = [0; 0; 0];
+          q      = [1; 0; 0];
+          c      = dubinspath.cs;
+          rho    = dubinspath.R;
+          lambda = dubinspath.lams;
           
           if (p-dubinspath.w1)'*dubinspath.q1 < 0, % get to right side H1
-              state_transition = 1;
+              state_transition = 3;
               flag_first_time_in_state = 1;
           else
               flag_first_time_in_state = 0;
           end
           
       case 3, % follow straight line on Dubins path until intersect H2
-          flag   = ;  % following straight line path
-          Va_d   = ; % desired airspeed along waypoint path
-          r      = ;
-          q      = ;
-          c      = ;
-          rho    = ;
-          lambda = ;
+          flag   = 1;  % following straight line path
+          Va_d   = P.va0; % desired airspeed along waypoint path
+          r      = dubinspath.w1;
+          q      = dubinspath.q1;
+          c      = [0;0;0];
+          rho    = 0;
+          lambda = 0;
           flag_first_time_in_state = 0;
           
           if (p-dubinspath.w2)'*dubinspath.q1 >= 0, % entering H2
@@ -146,13 +147,13 @@ function out = path_manager_dubins(in,P,start_of_simulation)
           end
               
       case 4, % follow second orbit on Dubins path until intersect H3
-          flag   = ;  % following orbit
-          Va_d   = ; % desired airspeed along waypoint path
-          r      = ;
-          q      = ;
-          c      = ;
-          rho    =;
-          lambda = ;
+          flag   = 2;  % following orbit
+          Va_d   = P.va0; % desired airspeed along waypoint path
+          r      = [0; 0; 0];
+          q      = [1; 0; 0];
+          c      = dubinspath.ce;
+          rho    = dubinspath.R;
+          lambda = dubinspath.lame;
           flag_first_time_in_state = 0;
           
           if ((p-dubinspath.w3)'*dubinspath.q3 >= 0)&&(flag_first_time_in_state==1), % start in H3
@@ -178,13 +179,13 @@ function out = path_manager_dubins(in,P,start_of_simulation)
           end
 
       case 5, % follow first orbit on Dubins path until on right side of H3
-          flag   = ;  % following orbit
-          Va_d   = ; % desired airspeed along waypoint path
-          r      = ;
-          q      = ;
-          c      = ;
-          rho    = ;
-          lambda = ;
+          flag   = 2;  % following orbit
+          Va_d   = P.va0; % desired airspeed along waypoint path
+          r      = [0; 0; 0];
+          q      = [1; 0; 0];
+          c      = dubinspath.ce;
+          rho    = dubinspath.R;
+          lambda = dubinspath.lame;
           flag_first_time_in_state = 0;
           
           if (p-dubinspath.w3)'*dubinspath.q3 < 0, % get to right side of H3
