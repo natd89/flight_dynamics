@@ -81,14 +81,11 @@ function out = path_manager_dubins(in,P,start_of_simulation)
       flag_first_time_in_state = 1;
   end
   
-  ps = waypoints(1:3,ptr_a);
-  pe = waypoints(1:3,ptr_b);
-  
   % define transition state machine
   switch state_transition,
       case 0, % beginning of simulation
-          flag   = 1;
-          Va_d   = waypoints;
+          flag   = ;
+          Va_d   = ;
           r      = ;
           q      = ;
           c      = ;
@@ -97,8 +94,6 @@ function out = path_manager_dubins(in,P,start_of_simulation)
           if flag_first_time_in_state,
               flag_first_time_in_state =0;
           end
-          
-          crs = ps+R*Rz
       
       case 1, % follow first orbit on Dubins path until intersect H1
           flag   = ;  % following orbit
