@@ -86,11 +86,11 @@ function out = path_manager_dubins(in,P,start_of_simulation)
       case 0, % beginning of simulation
           flag   = 1;
           Va_d   = P.va0;
-          r      = dubinspath.ps;
-          q      = dubinspath.q1;
-          c      = dubinspath.cs;
-          rho    = dubinspath.R;
-          lambda = dubinspath.lams;
+          r      = [0;0;-P.pd0];
+          q      = [1;0;0];
+          c      = 0;
+          rho    = 0;
+          lambda = 0;
           if flag_first_time_in_state,
               flag_first_time_in_state =0;
           end
@@ -98,9 +98,8 @@ function out = path_manager_dubins(in,P,start_of_simulation)
       case 1, % follow first orbit on Dubins path until intersect H1
           flag   = 2;  % following orbit
           Va_d   = P.va0; % desired airspeed along waypoint path
-          r      = dubinspath.ps;
-          q      = [1; 0; 0];     % not used for orbit
-          q      = q/norm(q);       
+          r      = [0;0;0];
+          q      = [1; 0; 0];     % not used for orbit       
           c      = dubinspath.cs;
           rho    = dubinspath.R;
           lambda = dubinspath.lams;
@@ -156,10 +155,10 @@ function out = path_manager_dubins(in,P,start_of_simulation)
           lambda = dubinspath.lame;
           flag_first_time_in_state = 0;
           
-          if ((p-dubinspath.w3)'*dubinspath.q3 >= 0)&&(flag_first_time_in_state==1), % start in H3
+          if ((p-dubinspath.w3')'*dubinspath.q3 >= 0)&&(flag_first_time_in_state==1), % start in H3
               state_transition = 5;
               flag_first_time_in_state=1;
-          elseif (p-dubinspath.w3)'*dubinspath.q3 >= 0, % entering H3
+          elseif (p-dubinspath.w3')'*dubinspath.q3 >= 0, % entering H3
               % increase the waypoint pointer
               if ptr_a==num_waypoints-1,
                   flag_need_new_waypoints = 1;
@@ -188,7 +187,7 @@ function out = path_manager_dubins(in,P,start_of_simulation)
           lambda = dubinspath.lame;
           flag_first_time_in_state = 0;
           
-          if (p-dubinspath.w3)'*dubinspath.q3 < 0, % get to right side of H3
+          if (p-dubinspath.w3')'*dubinspath.q3 < 0, % get to right side of H3
               state_transition = 4;
               flag_first_time_in_state = 1;
           else

@@ -38,20 +38,22 @@ function dubinspath = dubinsParameters(start_node, end_node, R)
     pe   = end_node(1:3);
     chie = end_node(4);
     
-    crs = ps+R*rotz(pi/2)*[cos(chis+pi/2),sin(chis+pi/2),0]';
-    cls = ps+R*rotz(-pi/2)*[cos(chis-pi/2),sin(chis-pi/2),0]';
-    cre = pe+R*rotz(pi/2)*[cos(chie+pi/2),sin(chie+pi/2),0]';
-    cle = pe+R*rotz(-pi/2)*[cos(chie-pi/2),sin(chie-pi/2),0]';
+    crs = ps'+R*rotz(pi/2)*[cos(chis),sin(chis),0]';
+    cls = ps'+R*rotz(-pi/2)*[cos(chis),sin(chis),0]';
+    cre = pe'+R*rotz(pi/2)*[cos(chie),sin(chie),0]';
+    cle = pe'+R*rotz(-pi/2)*[cos(chie),sin(chie),0]';
     
    
     % compute L1
     theta = atan2(cre(2)-crs(2),cre(1)-crs(1));
+%     theta = acos(dot(cre-crs,[1;0;0]))/norm(cre-crs);
     L1 = norm(crs-cre)+...
          R*mod(2*pi+mod(theta-pi/2,2*pi)-mod(chis-pi/2,2*pi),2*pi)+...
          R*mod(2*pi+mod(chie-pi/2,2*pi)-mod(theta-pi/2,2*pi),2*pi);
     % compute L2
     ell = norm(cle-crs);
     theta = atan2(cle(2)-crs(2),cle(1)-crs(1));
+%     theta = acos(dot(cle-crs,[1;0;0]))/norm(cle-crs);
     theta2 = theta-pi/2+asin(2*R/ell);
     if isreal(theta2)==0, 
       L2 = 9999; 
@@ -63,6 +65,7 @@ function dubinspath = dubinsParameters(start_node, end_node, R)
     % compute L3
     ell = norm(cre-cls);
     theta = atan2(cre(2)-cls(2),cre(1)-cls(1));
+%     theta = acos(dot(cre-cls,[1;0;0]))/norm(cre-cls);
     theta2 = acos(2*R/ell);
     if isreal(theta2)==0,
       L3 = 9999;
@@ -72,7 +75,8 @@ function dubinspath = dubinsParameters(start_node, end_node, R)
            R*mod(2*pi + mod(chie-pi/2,2*pi)-mod(theta+theta2-pi,2*pi),2*pi);
     end
     % compute L4
-    theta = atan2(cle(2)-cls(2),cle(1)-cls(1));;
+    theta = atan2(cle(2)-cls(2),cle(1)-cls(1));
+%     theta = acos(dot(cle-cls,[1;0;0]))/norm(cle-cls);
     L4 = norm(cls-cle)+...
          R*mod(2*pi+mod(chis+pi/2,2*pi)-mod(theta+pi/2,2*pi),2*pi)+...
          R*mod(2*pi + mod(theta+pi/2,2*pi)-mod(chie+pi/2,2*pi),2*pi);
