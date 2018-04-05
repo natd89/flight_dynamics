@@ -35,6 +35,7 @@ function out = path_manager(in,P)
   t = in(end);
   if t==0,
       start_of_simulation = 1;
+      % major hack for h. h initializes as 0 for some reason. need to
   end
 
   NN = 0;
@@ -46,6 +47,9 @@ function out = path_manager(in,P)
       pn        = in(1+NN);
       pe        = in(2+NN);
       h         = in(3+NN);
+      if t==0
+          h = P.pd0;
+      end
       chi       = in(9+NN);
       r         = [pn; pe; -h];
       q         = [cos(chi); sin(chi); 0];

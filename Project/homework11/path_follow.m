@@ -54,6 +54,7 @@ function out = path_follow(in,P)
   % psi     = in(16+NN);
   NN = NN + 16;
   t         = in(1+NN);
+
   
   switch flag,
       case 1, % follow straight line path specified by r and q

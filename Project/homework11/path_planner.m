@@ -28,8 +28,9 @@ function out = path_planner(in,P,map)
   flag_new_waypoints =  in(17+NN);
   NN = NN + 17;
   t         =  in(1+NN);
-  
-    
+  if t==0
+    h = P.pd0;
+  end
   persistent num_waypoints
   persistent wpp
   
@@ -39,6 +40,7 @@ function out = path_planner(in,P,map)
     % of the waypoint is (pn, pe, pd), the desired course at the waypoint
     % is chi, and the desired airspeed between waypoints is Va
     % if chi!=-9999, then Dubins paths will be used between waypoints.
+    
     switch 5,
           case 1,
             num_waypoints = 4;
@@ -96,6 +98,7 @@ function out = path_planner(in,P,map)
                % current configuration
               wpp_start = [pn, pe, -h, chi, P.va0];
               waypoints = planCoverRRTDubins(wpp_start, P.R_min, map);
+              % waypoints = planCover(wpp_start, map);
               num_waypoints = size(waypoints,1);
               wpp = [];
               for i=1:num_waypoints,

@@ -31,7 +31,7 @@ function path = planCoverRRTDubins(wpp_start,R_min, map)
         
         % find chi based on old_point and new_point
         chi = atan2(new_point(2)-old_point(2),new_point(1)-old_point(1));
-        
+        path(end,4) = chi;
         path = [path; next_path(1,:)];
         % update the return map
         return_map = updateReturnMap(next_path(1,:),return_map,map);

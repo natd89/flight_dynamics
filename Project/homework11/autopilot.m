@@ -37,6 +37,10 @@ function y = autopilot(uu,P)
     NN = NN+3;
     t        = uu(1+NN);   % time
     
+    if t==0
+        h=-P.pd0;
+    end
+    
     % hack since no phi_c_ff is included in inputs in Simulink model
     phi_c_ff = 0;
     
