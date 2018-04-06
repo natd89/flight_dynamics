@@ -1,11 +1,11 @@
-function path_out = planRRTDubins(wpp_start, wpp_end, R_min, map)
+function path_out = planRRTDubins(wpp_start, wpp_end, R_min, map,P)
 
     % standard length of path segments
     segmentLength = 100;
 
     % desired down position is down position of end node
     pd = wpp_end(3);
-    chi = -9999;
+    chi = P.psi0;
     
     % specify start and end nodes from wpp_start and wpp_end
     start_node = [wpp_start(1), wpp_start(2), pd, chi, 0, 0, 0];
@@ -29,6 +29,7 @@ function path_out = planRRTDubins(wpp_start, wpp_end, R_min, map)
 
     % find path with minimum cost to end_node
     path = findMinimumPath(tree,end_node);
+    
     path_out = smoothPath(path,map);
     plotmap(map,path,path_out,tree);
 

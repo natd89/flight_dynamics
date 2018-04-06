@@ -17,7 +17,7 @@ function path = planCoverRRTDubins(wpp_start,R_min, map)
     SEARCH_CYCLES = 50;  % number of search cycles
        
     % look ahead tree parameters
-    L = 50;  % segment Length
+    L = 2*R_min + 20;  % segment Length
     vartheta = pi/4; % search angle
     depth = 5; % depth of look ahead tree
     
