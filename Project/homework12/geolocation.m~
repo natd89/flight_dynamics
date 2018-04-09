@@ -66,8 +66,8 @@ function out = geolocation(in,P)
     
     p_obj = p_mav + L*R_tot;
     
-    tn   = p_obj(1);
-    te   = p_obj(2);
+    tn   = p_obj(1)
+    te   = p_obj(2)
     
     % end geolocation code 
     %--------------------------------------    
@@ -125,9 +125,6 @@ function R = Rot_b_to_g(az,el)
 
 %     R = Rot_g1_to_g * Rot_b_to_g1;
 
-R = [cos(el)*cos(az), -sin(el), -sin(el)*cos(az);...
-     cos(el)*sin(az), cos(az), -sin(el)*sin(az);...
-     sin(el), 0, cos(el)];
-    
+R = [cos(az)*cos(el) -sin(
 
 end
