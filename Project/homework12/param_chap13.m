@@ -37,7 +37,7 @@ B_lon = E1_lon'*B*E2_lon;
 P.va0 = Va;
 P.pn0 = 0;
 P.pe0 = 0;
-P.pd0 = -50;
+P.pd0 = -100;
 P.u0 = X_trim(4);
 P.v0 = X_trim(5);
 P.w0 = X_trim(6);
@@ -295,12 +295,12 @@ P.phi_max = 45*pi/180;
     
     
 % simplified version gains
-P.b_chidot = 1;
+P.b_chidot = 4;
 P.b_chi = 1;
 P.b_phi = 1;
-P.b_hdot = 1;
-P.b_h = 1;
-P.b_Va = 1;
+P.b_hdot = 2*0.7;
+P.b_h = 0.7^2;
+P.b_Va = 2;
 
 % need to add the following to your parameter file:
  
@@ -311,7 +311,7 @@ P.R_min = P.va0^2/P.g/tan(P.phi_max);
 
 % create random city map
 city_width      = 2000;  % the city is of size (width)x(width)
-building_height = 300;   % maximum height of buildings
+building_height = 1;   % maximum height of buildings
 %building_height = 1;   % maximum height of buildings (for camera)
 num_blocks      = 5;    % number of blocks in city
 street_width    = .8;   % percent of block that is street.

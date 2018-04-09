@@ -140,7 +140,7 @@ function sys=mdlDerivatives(t,x,u,P)
   Vadot   = P.b_Va*(Va_c-Va);
 
   % don't let climb rate exceed Va*sin(\gamma_max)
-  hddot   = -P.b_hdot*hdot + P.b_h*(h_c-h);
+  hddot   = P.b_hdot*hdot + P.b_h*(h_c-h);
   if (hdot>=Va*sin(P.gamma_max)) & (hddot>0),
       hddot = 0;
   elseif (hdot<=-Va*sin(P.gamma_max)) & (hddot<0),

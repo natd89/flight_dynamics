@@ -40,8 +40,8 @@ function out = point_gimbal(uu,P)
     % ell_b = Rot_v_to_b(phi,theta,psi)*Rot_b_to_g(az,el)*[0 0 1;1 0 0;0 1 0]*ell_v/norm(ell_v);
     ell_b = 1/norm(ell_v)*Rot_v_to_b(phi,theta,psi)*ell_v;
     
-    az_d =  atan2(ell_b(2),ell_b(1));
-    el_d =  -asin(ell_b(3));
+    az_d =  atan(ell_b(2)/ell_b(1));
+    el_d =  asin(ell_b(3));
     
     % proportional control for gimbal
     u_az = P.k_az * (az_d - az);

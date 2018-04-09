@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.269"
+    ComputedModelVersion    "1.270"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -30,6 +30,7 @@ Model {
   MinMaxOverflowArchiveMode "Overwrite"
   FPTRunName		  "Run 1"
   MaxMDLFileLineLength	  120
+  InitFcn		  "param_chap13"
   LastSavedArchitecture	  "glnxa64"
   Object {
     $PropName		    "BdWindowsInfo"
@@ -40,7 +41,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [65.0, 14.0, 1136.0, 764.0]
+      Location		      [227.0, 106.0, 1136.0, 764.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -49,7 +50,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -57,20 +58,77 @@ Model {
 	$ClassName		"Simulink.ExplorerBarInfo"
 	Visible			[1]
       }
-      Object {
-	$PropName		"EditorsInfo"
-	$ObjectID		5
-	$ClassName		"Simulink.EditorInfo"
-	IsActive		[1]
-	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"162"
-	Extents			[1082.0, 571.0]
-	ZoomFactor		[1.0]
-	Offset			[0.0, 0.0]
+      Array {
+	Type			"Simulink.EditorInfo"
+	Dimension		7
+	Object {
+	  $ObjectID		  5
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "162"
+	  Extents		  [1080.0, 564.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	Object {
+	  $ObjectID		  6
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "257"
+	  Extents		  [1080.0, 564.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	Object {
+	  $ObjectID		  7
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkTopLevel"
+	  LoadSaveID		  "0"
+	  Extents		  [1080.0, 564.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	Object {
+	  $ObjectID		  8
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "135"
+	  Extents		  [1080.0, 564.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	Object {
+	  $ObjectID		  9
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "223"
+	  Extents		  [1080.0, 564.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	Object {
+	  $ObjectID		  10
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "261"
+	  Extents		  [1080.0, 564.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	Object {
+	  $ObjectID		  11
+	  IsActive		  [1]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "250"
+	  Extents		  [1080.0, 564.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	PropName		"EditorsInfo"
       }
       Object {
 	$PropName		"DockComponentsInfo"
-	$ObjectID		6
+	$ObjectID		12
 	$ClassName		"Simulink.DockComponentInfo"
 	Type			"GLUE2:PropertyInspector"
 	ID			"Property Inspector"
@@ -86,10 +144,10 @@ Model {
       "AAAAAAA+wAAABYARABvAGMAawBXAGkAZABnAGUAdAA0AAAAAAD/////AAAAAAAAAAD7AAAAUgBHAEwAVQBFADIAIAB0AHIAZQBlACAAYwBvAG0Ac"
       "ABvAG4AZQBuAHQALwBHAEwAVQBFADIAIAB0AHIAZQBlACAAYwBvAG0AcABvAG4AZQBuAHQAAAAAAP////8AAABeAP///wAAAAEAAAAAAAAAAPwCA"
       "AAAAfsAAABUAEcATABVAEUAMgA6AFAAcgBvAHAAZQByAHQAeQBJAG4AcwBwAGUAYwB0AG8AcgAvAFAAcgBvAHAAZQByAHQAeQAgAEkAbgBzAHAAZ"
-      "QBjAHQAbwByAAAAAAD/////AAAAKAD///8AAARcAAACdQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAAP/////wAAAAAA/////wAAAAAAAAAA/"
+      "QBjAHQAbwByAAAAAAD/////AAAAKAD///8AAARaAAACdAAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAAP/////wAAAAAA/////wAAAAAAAAAA/"
       "////wEAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/"
       "////wEAAACA/////wAAAAAAAAAA/////wEAAADo/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAAFo/////wAAAAAAAAAA/"
-      "////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAANR/////wAAAAAAAAAA/"
+      "////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAANK/////wAAAAAAAAAA/"
       "////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA"
     }
   }
@@ -97,11 +155,11 @@ Model {
   Creator		  "beard"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "nathan"
+  LastModifiedBy	  "nmd89"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sat Apr 07 12:37:04 2018"
-  RTWModifiedTimeStamp	  445005282
-  ModelVersionFormat	  "1.%<AutoIncrement:269>"
+  LastModifiedDate	  "Mon Apr 09 13:38:01 2018"
+  RTWModifiedTimeStamp	  445178198
+  ModelVersionFormat	  "1.%<AutoIncrement:270>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -149,7 +207,7 @@ Model {
   TryForcingSFcnDF	  off
   Object {
     $PropName		    "DataLoggingOverride"
-    $ObjectID		    7
+    $ObjectID		    13
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "mavsim_chap13_gimbal_model"
     Array {
@@ -192,7 +250,7 @@ Model {
     Type		    "Handle"
     Dimension		    1
     Simulink.ConfigSet {
-      $ObjectID		      8
+      $ObjectID		      14
       Version		      "1.16.5"
       DisabledProps	      []
       Description	      ""
@@ -200,7 +258,7 @@ Model {
 	Type			"Handle"
 	Dimension		9
 	Simulink.SolverCC {
-	  $ObjectID		  9
+	  $ObjectID		  15
 	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
@@ -240,7 +298,7 @@ Model {
 	  SampleTimeProperty	  []
 	}
 	Simulink.DataIOCC {
-	  $ObjectID		  10
+	  $ObjectID		  16
 	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
@@ -280,7 +338,7 @@ Model {
 	  LoggingIntervals	  "[-inf, inf]"
 	}
 	Simulink.OptimizationCC {
-	  $ObjectID		  11
+	  $ObjectID		  17
 	  Version		  "1.16.5"
 	  Array {
 	    Type		    "Cell"
@@ -338,7 +396,7 @@ Model {
 	  AccelVerboseBuild	  off
 	}
 	Simulink.DebuggingCC {
-	  $ObjectID		  12
+	  $ObjectID		  18
 	  Version		  "1.16.5"
 	  Array {
 	    Type		    "Cell"
@@ -420,7 +478,7 @@ Model {
 	  SimStateInterfaceChecksumMismatchMsg "warning"
 	  SimStateOlderReleaseMsg "error"
 	  InitInArrayFormatMsg	  "warning"
-	  StrictBusMsg		  "Warning"
+	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
 	  NonBusSignalsTreatedAsBus "none"
 	  SymbolicDimMinMaxWarning "warning"
@@ -446,7 +504,7 @@ Model {
 	  AllowAutomaticUnitConversions	on
 	}
 	Simulink.HardwareCC {
-	  $ObjectID		  13
+	  $ObjectID		  19
 	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
@@ -494,7 +552,7 @@ Model {
 	  UseSimulinkCoderFeatures on
 	}
 	Simulink.ModelReferenceCC {
-	  $ObjectID		  14
+	  $ObjectID		  20
 	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
@@ -513,7 +571,7 @@ Model {
 	  SupportModelReferenceSimTargetCustomCode off
 	}
 	Simulink.SFSimCC {
-	  $ObjectID		  15
+	  $ObjectID		  21
 	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
@@ -541,7 +599,7 @@ Model {
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  16
+	  $ObjectID		  22
 	  Version		  "1.16.5"
 	  Array {
 	    Type		    "Cell"
@@ -624,7 +682,7 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      17
+	      $ObjectID		      23
 	      Version		      "1.16.5"
 	      Array {
 		Type			"Cell"
@@ -707,7 +765,7 @@ Model {
 	    }
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      18
+	      $ObjectID		      24
 	      Version		      "1.16.5"
 	      Array {
 		Type			"Cell"
@@ -803,7 +861,7 @@ Model {
 	  }
 	}
 	SlCovCC.ConfigComp {
-	  $ObjectID		  19
+	  $ObjectID		  25
 	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  "Simulink Coverage Configuration Component"
@@ -852,11 +910,11 @@ Model {
   }
   Simulink.ConfigSet {
     $PropName		    "ActiveConfigurationSet"
-    $ObjectID		    8
+    $ObjectID		    14
   }
   Object {
     $PropName		    "DataTransfer"
-    $ObjectID		    20
+    $ObjectID		    26
     $ClassName		    "Simulink.GlobalDataTransfer"
     DefaultTransitionBetweenSyncTasks "Ensure deterministic transfer (maximum delay)"
     DefaultTransitionBetweenAsyncTasks "Ensure data integrity only"
@@ -1054,8 +1112,8 @@ Model {
   }
   System {
     Name		    "mavsim_chap13_gimbal_model"
-    Location		    [65, 14, 1201, 778]
-    Open		    off
+    Location		    [227, 106, 1363, 870]
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1107,7 +1165,7 @@ Model {
       Variant		      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		21
+	$ObjectID		27
 	$ClassName		"Simulink.Mask"
 	Display			"image(imread('gimbal.jpg'))"
       }
@@ -1304,8 +1362,8 @@ Model {
       Variant		      off
       System {
 	Name			"Guidance Model"
-	Location		[65, 14, 1201, 778]
-	Open			off
+	Location		[261, 107, 1397, 871]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1409,7 +1467,7 @@ Model {
       Variant		      off
       System {
 	Name			"Path Follower"
-	Location		[65, 14, 1201, 778]
+	Location		[446, 77, 1582, 841]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1465,7 +1523,7 @@ Model {
 	  Position		  [235, 82, 300, 118]
 	  ZOrder		  -5
 	  MATLABFcn		  "path_follow(u,P)"
-	  OutputDimensions	  "3"
+	  OutputDimensions	  "4"
 	  SampleTime		  "P.Ts"
 	}
 	Block {
@@ -1712,8 +1770,8 @@ Model {
       Variant		      off
       System {
 	Name			"Path Planner"
-	Location		[65, 14, 1201, 778]
-	Open			off
+	Location		[261, 107, 1397, 871]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1774,7 +1832,7 @@ Model {
 	  Ports			  [1, 1]
 	  Position		  [215, 95, 275, 125]
 	  ZOrder		  -6
-	  MATLABFcn		  "path_planner(u,P,map)"
+	  MATLABFcn		  "path_planner(u,P,P.map)"
 	  OutputDimensions	  "1+5*P.size_waypoint_array"
 	  SampleTime		  "100*P.Ts"
 	}
@@ -1846,8 +1904,8 @@ Model {
       Variant		      off
       System {
 	Name			"Point Gimbal"
-	Location		[930, 533, 1433, 1063]
-	Open			off
+	Location		[227, 106, 1363, 870]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1972,7 +2030,7 @@ Model {
       Variant		      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		22
+	$ObjectID		28
 	$ClassName		"Simulink.Mask"
 	Initialization		"% parameters for drawing aircraft\n  % scale size\n  size = 1;\n  fuse_l1    = 7;\n  fuse_l2    = 4;"
 	"\n  fuse_l3    = 15;\n  fuse_w     = 2;\n  wing_l     = 6;\n  wing_w     = 20;\n  tail_l     = 3;\n  tail_h     = 3;\n"
@@ -2001,21 +2059,21 @@ Model {
 	  Type			  "Simulink.MaskParameter"
 	  Dimension		  3
 	  Object {
-	    $ObjectID		    23
+	    $ObjectID		    29
 	    Type		    "edit"
 	    Name		    "map"
 	    Prompt		    "map"
-	    Value		    "map"
+	    Value		    "P.map"
 	  }
 	  Object {
-	    $ObjectID		    24
+	    $ObjectID		    30
 	    Type		    "edit"
 	    Name		    "R_min"
 	    Prompt		    "R_min"
 	    Value		    "P.R_min"
 	  }
 	  Object {
-	    $ObjectID		    25
+	    $ObjectID		    31
 	    Type		    "edit"
 	    Name		    "cam_fov"
 	    Prompt		    "FOV of Camera"
@@ -2026,8 +2084,8 @@ Model {
       }
       System {
 	Name			"draw environment \nwith Camera"
-	Location		[845, 45, 1434, 766]
-	Open			off
+	Location		[227, 106, 1363, 870]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2188,14 +2246,14 @@ Model {
       Variant		      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		26
+	$ObjectID		32
 	$ClassName		"Simulink.Mask"
 	Display			"image(imread('monstertruck.jpg'))"
       }
       System {
 	Name			"target"
-	Location		[636, 373, 1000, 762]
-	Open			off
+	Location		[446, 77, 1582, 841]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2225,7 +2283,7 @@ Model {
 	  ZOrder		  -2
 	  ShowName		  off
 	  FunctionName		  "target_motion"
-	  Parameters		  "P,map"
+	  Parameters		  "P,P.map"
 	  SFunctionDeploymentMode off
 	  EnableBusSupport	  off
 	  SFcnIsStateOwnerBlock	  off

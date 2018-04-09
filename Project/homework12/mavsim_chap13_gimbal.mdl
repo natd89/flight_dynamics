@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.241"
+    ComputedModelVersion    "1.242"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -30,6 +30,7 @@ Model {
   MinMaxOverflowArchiveMode "Overwrite"
   FPTRunName		  "Run 1"
   MaxMDLFileLineLength	  120
+  InitFcn		  "param_chap13"
   LastSavedArchitecture	  "glnxa64"
   Object {
     $PropName		    "BdWindowsInfo"
@@ -40,7 +41,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [65.0, 24.0, 1301.0, 744.0]
+      Location		      [81.0, 93.0, 1269.0, 922.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -49,7 +50,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -57,20 +58,77 @@ Model {
 	$ClassName		"Simulink.ExplorerBarInfo"
 	Visible			[1]
       }
-      Object {
-	$PropName		"EditorsInfo"
-	$ObjectID		5
-	$ClassName		"Simulink.EditorInfo"
-	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
-	Extents			[1267.0, 599.0]
-	ZoomFactor		[1.25]
-	Offset			[17.150000000000009, -23.16514032781123]
+      Array {
+	Type			"Simulink.EditorInfo"
+	Dimension		7
+	Object {
+	  $ObjectID		  5
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "87"
+	  Extents		  [1213.0, 722.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	Object {
+	  $ObjectID		  6
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "197"
+	  Extents		  [941.0, 544.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	Object {
+	  $ObjectID		  7
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkTopLevel"
+	  LoadSaveID		  "0"
+	  Extents		  [1213.0, 722.0]
+	  ZoomFactor		  [1.25]
+	  Offset		  [17.149999999999977, -23.16514032781123]
+	}
+	Object {
+	  $ObjectID		  8
+	  IsActive		  [1]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "1"
+	  Extents		  [1213.0, 722.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [-60.0, -11.0]
+	}
+	Object {
+	  $ObjectID		  9
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "247"
+	  Extents		  [1245.0, 544.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	Object {
+	  $ObjectID		  10
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "158"
+	  Extents		  [1213.0, 722.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	Object {
+	  $ObjectID		  11
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "296"
+	  Extents		  [1245.0, 544.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	PropName		"EditorsInfo"
       }
       Object {
 	$PropName		"DockComponentsInfo"
-	$ObjectID		6
+	$ObjectID		12
 	$ClassName		"Simulink.DockComponentInfo"
 	Type			"GLUE2:PropertyInspector"
 	ID			"Property Inspector"
@@ -86,10 +144,10 @@ Model {
       "AAAAAAA+wAAABYARABvAGMAawBXAGkAZABnAGUAdAA0AAAAAAD/////AAAAAAAAAAD7AAAAUgBHAEwAVQBFADIAIAB0AHIAZQBlACAAYwBvAG0Ac"
       "ABvAG4AZQBuAHQALwBHAEwAVQBFADIAIAB0AHIAZQBlACAAYwBvAG0AcABvAG4AZQBuAHQAAAAAAP////8AAABeAP///wAAAAEAAAAAAAAAAPwCA"
       "AAAAfsAAABUAEcATABVAEUAMgA6AFAAcgBvAHAAZQByAHQAeQBJAG4AcwBwAGUAYwB0AG8AcgAvAFAAcgBvAHAAZQByAHQAeQAgAEkAbgBzAHAAZ"
-      "QBjAHQAbwByAAAAAAD/////AAAAKAD///8AAAUVAAACkQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAAP/////wAAAAAA/////wAAAAAAAAAA/"
+      "QBjAHQAbwByAAAAAAD/////AAAAKAD///8AAATfAAADEgAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAAP/////wAAAAAA/////wAAAAAAAAAA/"
       "////wEAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/"
       "////wEAAACA/////wAAAAAAAAAA/////wEAAADo/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAAFo/////wAAAAAAAAAA/"
-      "////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAANR/////wAAAAAAAAAA/"
+      "////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAANK/////wAAAAAAAAAA/"
       "////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA"
     }
   }
@@ -97,11 +155,11 @@ Model {
   Creator		  "beard"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "nathan"
+  LastModifiedBy	  "nmd89"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sat Apr 07 12:09:56 2018"
-  RTWModifiedTimeStamp	  445003779
-  ModelVersionFormat	  "1.%<AutoIncrement:241>"
+  LastModifiedDate	  "Mon Apr 09 11:25:25 2018"
+  RTWModifiedTimeStamp	  445171939
+  ModelVersionFormat	  "1.%<AutoIncrement:242>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -149,7 +207,7 @@ Model {
   TryForcingSFcnDF	  off
   Object {
     $PropName		    "DataLoggingOverride"
-    $ObjectID		    7
+    $ObjectID		    13
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "mavsim_chap13_gimbal"
     Array {
@@ -192,7 +250,7 @@ Model {
     Type		    "Handle"
     Dimension		    1
     Simulink.ConfigSet {
-      $ObjectID		      8
+      $ObjectID		      14
       Version		      "1.16.5"
       DisabledProps	      []
       Description	      ""
@@ -200,7 +258,7 @@ Model {
 	Type			"Handle"
 	Dimension		9
 	Simulink.SolverCC {
-	  $ObjectID		  9
+	  $ObjectID		  15
 	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
@@ -240,7 +298,7 @@ Model {
 	  SampleTimeProperty	  []
 	}
 	Simulink.DataIOCC {
-	  $ObjectID		  10
+	  $ObjectID		  16
 	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
@@ -280,7 +338,7 @@ Model {
 	  LoggingIntervals	  "[-inf, inf]"
 	}
 	Simulink.OptimizationCC {
-	  $ObjectID		  11
+	  $ObjectID		  17
 	  Version		  "1.16.5"
 	  Array {
 	    Type		    "Cell"
@@ -338,7 +396,7 @@ Model {
 	  AccelVerboseBuild	  off
 	}
 	Simulink.DebuggingCC {
-	  $ObjectID		  12
+	  $ObjectID		  18
 	  Version		  "1.16.5"
 	  Array {
 	    Type		    "Cell"
@@ -420,7 +478,7 @@ Model {
 	  SimStateInterfaceChecksumMismatchMsg "warning"
 	  SimStateOlderReleaseMsg "error"
 	  InitInArrayFormatMsg	  "warning"
-	  StrictBusMsg		  "Warning"
+	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
 	  NonBusSignalsTreatedAsBus "none"
 	  SymbolicDimMinMaxWarning "warning"
@@ -446,7 +504,7 @@ Model {
 	  AllowAutomaticUnitConversions	on
 	}
 	Simulink.HardwareCC {
-	  $ObjectID		  13
+	  $ObjectID		  19
 	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
@@ -494,7 +552,7 @@ Model {
 	  UseSimulinkCoderFeatures on
 	}
 	Simulink.ModelReferenceCC {
-	  $ObjectID		  14
+	  $ObjectID		  20
 	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
@@ -513,7 +571,7 @@ Model {
 	  SupportModelReferenceSimTargetCustomCode off
 	}
 	Simulink.SFSimCC {
-	  $ObjectID		  15
+	  $ObjectID		  21
 	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
@@ -541,7 +599,7 @@ Model {
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  16
+	  $ObjectID		  22
 	  Version		  "1.16.5"
 	  Array {
 	    Type		    "Cell"
@@ -624,7 +682,7 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      17
+	      $ObjectID		      23
 	      Version		      "1.16.5"
 	      Array {
 		Type			"Cell"
@@ -707,7 +765,7 @@ Model {
 	    }
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      18
+	      $ObjectID		      24
 	      Version		      "1.16.5"
 	      Array {
 		Type			"Cell"
@@ -803,7 +861,7 @@ Model {
 	  }
 	}
 	SlCovCC.ConfigComp {
-	  $ObjectID		  19
+	  $ObjectID		  25
 	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  "Simulink Coverage Configuration Component"
@@ -852,11 +910,11 @@ Model {
   }
   Simulink.ConfigSet {
     $PropName		    "ActiveConfigurationSet"
-    $ObjectID		    8
+    $ObjectID		    14
   }
   Object {
     $PropName		    "DataTransfer"
-    $ObjectID		    20
+    $ObjectID		    26
     $ClassName		    "Simulink.GlobalDataTransfer"
     DefaultTransitionBetweenSyncTasks "Ensure deterministic transfer (maximum delay)"
     DefaultTransitionBetweenAsyncTasks "Ensure data integrity only"
@@ -988,6 +1046,12 @@ Model {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      ManualSwitch
+      CurrentSetting	      "1"
+      varsize		      off
+      SampleTime	      "-1"
+    }
+    Block {
       BlockType		      Memory
       X0		      "0"
       InheritSampleTime	      off
@@ -1028,6 +1092,11 @@ Model {
       FunctionName	      "system"
       SFunctionModules	      "''"
       PortCounts	      "[]"
+    }
+    Block {
+      BlockType		      Scope
+      DefaultConfigurationName "Simulink.scopes.TimeScopeBlockCfg"
+      Floating		      off
     }
     Block {
       BlockType		      SubSystem
@@ -1079,7 +1148,7 @@ Model {
   }
   System {
     Name		    "mavsim_chap13_gimbal"
-    Location		    [65, 24, 1366, 768]
+    Location		    [81, 93, 1350, 1015]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1093,7 +1162,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "125"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "310"
+    SIDHighWatermark	    "311"
     Block {
       BlockType		      Terminator
       Name		      " "
@@ -1119,14 +1188,14 @@ Model {
       Variant		      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		21
+	$ObjectID		27
 	$ClassName		"Simulink.Mask"
 	Display			"image(imread('batcam.png'))"
       }
       System {
 	Name			"Controlled MAV"
-	Location		[541, 423, 1266, 980]
-	Open			off
+	Location		[81, 93, 1350, 1015]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1157,14 +1226,14 @@ Model {
 	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    22
+	    $ObjectID		    28
 	    $ClassName		    "Simulink.Mask"
 	    Display		    "image(imread('kestrel.jpg'))"
 	  }
 	  System {
 	    Name		    "Autopilot"
-	    Location		    [34, 45, 968, 829]
-	    Open		    off
+	    Location		    [81, 93, 1350, 1015]
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -1266,26 +1335,11 @@ Model {
 	      TagVisibility	      "global"
 	    }
 	    Block {
-	      BlockType		      Reference
+	      BlockType		      ManualSwitch
 	      Name		      "Manual Switch"
 	      SID		      "145"
-	      Ports		      [2, 1]
 	      Position		      [375, 207, 405, 243]
 	      ZOrder		      -11
-	      LibraryVersion	      "1.216"
-	      SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
-	      SourceType	      "Manual Switch"
-	      ShowPortLabels	      "FromPortIcon"
-	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData "off"
-	      RTWMemSecFuncInitTerm   "Inherit from model"
-	      RTWMemSecFuncExecute    "Inherit from model"
-	      RTWMemSecDataConstants  "Inherit from model"
-	      RTWMemSecDataInternal   "Inherit from model"
-	      RTWMemSecDataParameters "Inherit from model"
-	      sw		      "0"
-	      action		      "0"
-	      varsize		      "off"
 	    }
 	    Block {
 	      BlockType		      Memory
@@ -1326,6 +1380,32 @@ Model {
 	      ShowName		      off
 	      Inputs		      "3"
 	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Scope
+	      Name		      "Scope"
+	      SID		      "311"
+	      Ports		      [1]
+	      Position		      [525, 489, 555, 521]
+	      ZOrder		      2
+	      ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(ext"
+	      "mgr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration("
+	      "'Sources','WiredSimulink',true),extmgr.Configuration('Visuals','Time Domain',true,'SerializedDisplays',{struct("
+	      "'MinYLimReal','-12.5','MaxYLimReal','112.5','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','112.5','Legend"
+	      "Visibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.6862745"
+	      "09803922 0.686274509803922 0.686274509803922],'ColorOrder',[1 1 0.0666666666666667;0.0745098039215686 0.6235294"
+	      "11764706 1;1 0.411764705882353 0.16078431372549;0.392156862745098 0.831372549019608 0.0745098039215686;0.717647"
+	      "058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863],'Title','%<SignalL"
+	      "abel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines',4,'LineNames',{{'commands:1','comma"
+	      "nds:2','commands:3','commands:4'}},'ShowContent',true,'Placement',1)},'DisplayPropertyDefaults',struct('MinYLim"
+	      "Real','-12.5','MaxYLimReal','112.5','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','112.5','LegendVisibili"
+	      "ty','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922"
+	      " 0.686274509803922 0.686274509803922],'ColorOrder',[0.0745098039215686 0.623529411764706 1;1 0.411764705882353 "
+	      "0.16078431372549;1 1 0.0666666666666667;0.717647058823529 0.274509803921569 1;0.392156862745098 0.8313725490196"
+	      "08 0.0745098039215686;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863])),extmgr.Configuration('To"
+	      "ols','Plot Navigation',true),extmgr.Configuration('Tools','Measurements',true,'Version','2016b')),'Version','20"
+	      "16b','Position',[985 344 570 450])"
+	      NumInputPorts	      "1"
 	    }
 	    Block {
 	      BlockType		      MATLABFcn
@@ -1409,8 +1489,18 @@ Model {
 	      ZOrder		      5
 	      SrcBlock		      "commands"
 	      SrcPort		      1
-	      DstBlock		      "Mux1"
-	      DstPort		      2
+	      Points		      [10, 0]
+	      Branch {
+		ZOrder			23
+		Points			[0, 205]
+		DstBlock		"Scope"
+		DstPort			1
+	      }
+	      Branch {
+		ZOrder			22
+		DstBlock		"Mux1"
+		DstPort			2
+	      }
 	    }
 	    Line {
 	      ZOrder		      6
@@ -1530,13 +1620,13 @@ Model {
 	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    23
+	    $ObjectID		    29
 	    $ClassName		    "Simulink.Mask"
 	    Display		    "image(imread('batcam.png'))"
 	  }
 	  System {
 	    Name		    "MAV"
-	    Location		    [203, 347, 1148, 996]
+	    Location		    [81, 93, 1350, 1015]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1574,151 +1664,10 @@ Model {
 	      Position		      [425, 104, 520, 166]
 	      ZOrder		      -3
 	      FunctionName	      "mav_dynamics"
-	      Parameters	      "mass,Jx,Jy,Jz,Jxz,pn0,pe0,pd0,u0,v0,w0,phi0,theta0,psi0,p0,q0,r0"
+	      Parameters	      "P"
 	      SFunctionDeploymentMode off
 	      EnableBusSupport	      off
 	      SFcnIsStateOwnerBlock   off
-	      Object {
-		$PropName		"MaskObject"
-		$ObjectID		24
-		$ClassName		"Simulink.Mask"
-		Array {
-		  Type			  "Simulink.MaskParameter"
-		  Dimension		  17
-		  Object {
-		    $ObjectID		    25
-		    Type		    "edit"
-		    Name		    "mass"
-		    Prompt		    "Mass"
-		    Value		    "P.mass"
-		  }
-		  Object {
-		    $ObjectID		    26
-		    Type		    "edit"
-		    Name		    "Jx"
-		    Prompt		    "Jx"
-		    Value		    "P.Jx"
-		  }
-		  Object {
-		    $ObjectID		    27
-		    Type		    "edit"
-		    Name		    "Jy"
-		    Prompt		    "Jy"
-		    Value		    "P.Jy"
-		  }
-		  Object {
-		    $ObjectID		    28
-		    Type		    "edit"
-		    Name		    "Jz"
-		    Prompt		    "Jz"
-		    Value		    "P.Jz"
-		  }
-		  Object {
-		    $ObjectID		    29
-		    Type		    "edit"
-		    Name		    "Jxz"
-		    Prompt		    "Jxz"
-		    Value		    "P.Jxz"
-		  }
-		  Object {
-		    $ObjectID		    30
-		    Type		    "edit"
-		    Name		    "pn0"
-		    Prompt		    "Initial North position"
-		    Value		    "P.pn0"
-		    Tunable		    "off"
-		  }
-		  Object {
-		    $ObjectID		    31
-		    Type		    "edit"
-		    Name		    "pe0"
-		    Prompt		    "Initial East position"
-		    Value		    "P.pe0"
-		    Tunable		    "off"
-		  }
-		  Object {
-		    $ObjectID		    32
-		    Type		    "edit"
-		    Name		    "pd0"
-		    Prompt		    "Initial Down position"
-		    Value		    "P.pd0"
-		    Tunable		    "off"
-		  }
-		  Object {
-		    $ObjectID		    33
-		    Type		    "edit"
-		    Name		    "u0"
-		    Prompt		    "Initial velocy u0"
-		    Value		    "P.u0"
-		    Tunable		    "off"
-		  }
-		  Object {
-		    $ObjectID		    34
-		    Type		    "edit"
-		    Name		    "v0"
-		    Prompt		    "Initial velocity v0"
-		    Value		    "P.v0"
-		    Tunable		    "off"
-		  }
-		  Object {
-		    $ObjectID		    35
-		    Type		    "edit"
-		    Name		    "w0"
-		    Prompt		    "Initial velocity w0"
-		    Value		    "P.w0"
-		    Tunable		    "off"
-		  }
-		  Object {
-		    $ObjectID		    36
-		    Type		    "edit"
-		    Name		    "phi0"
-		    Prompt		    "Initial roll angle"
-		    Value		    "P.phi0"
-		    Tunable		    "off"
-		  }
-		  Object {
-		    $ObjectID		    37
-		    Type		    "edit"
-		    Name		    "theta0"
-		    Prompt		    "Initial pitch angle"
-		    Value		    "P.theta0"
-		    Tunable		    "off"
-		  }
-		  Object {
-		    $ObjectID		    38
-		    Type		    "edit"
-		    Name		    "psi0"
-		    Prompt		    "Initial yaw angle"
-		    Value		    "P.psi0"
-		    Tunable		    "off"
-		  }
-		  Object {
-		    $ObjectID		    39
-		    Type		    "edit"
-		    Name		    "p0"
-		    Prompt		    "Initial roll rate"
-		    Value		    "P.p0"
-		    Tunable		    "off"
-		  }
-		  Object {
-		    $ObjectID		    40
-		    Type		    "edit"
-		    Name		    "q0"
-		    Prompt		    "Initial pitch rate"
-		    Value		    "P.q0"
-		    Tunable		    "off"
-		  }
-		  Object {
-		    $ObjectID		    41
-		    Type		    "edit"
-		    Name		    "r0"
-		    Prompt		    "Initial yaw rate"
-		    Value		    "P.r0"
-		    Tunable		    "off"
-		  }
-		  PropName		  "Parameters"
-		}
-	      }
 	    }
 	    Block {
 	      BlockType		      SubSystem
@@ -1731,8 +1680,8 @@ Model {
 	      Variant		      off
 	      System {
 		Name			"Forces & Moments"
-		Location		[791, 231, 1279, 718]
-		Open			off
+		Location		[81, 93, 1350, 1015]
+		Open			on
 		ModelBrowserVisibility	off
 		ModelBrowserWidth	200
 		ScreenColor		"white"
@@ -1868,17 +1817,16 @@ Model {
 		  ZOrder		  6
 		  SrcBlock		  "delta"
 		  SrcPort		  1
-		  Points		  [15, 0]
+		  Points		  [5, 0]
 		  Branch {
-		    ZOrder		    7
-		    Points		    [-10, 0]
-		    DstBlock		    "Goto"
-		    DstPort		    1
-		  }
-		  Branch {
-		    ZOrder		    8
+		    ZOrder		    10
 		    DstBlock		    "Mux"
 		    DstPort		    2
+		  }
+		  Branch {
+		    ZOrder		    7
+		    DstBlock		    "Goto"
+		    DstPort		    1
 		  }
 		}
 		Line {
@@ -2240,7 +2188,7 @@ Model {
 	  Variant		  off
 	  System {
 	    Name		    "Wind"
-	    Location		    [52, 556, 545, 1013]
+	    Location		    [65, 24, 1366, 768]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -2289,6 +2237,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [130, 84, 200, 106]
 	      ZOrder		      -4
+	      Commented		      "on"
 	      RequestExecContextInheritance off
 	      Variant		      off
 	      System {
@@ -2313,21 +2262,14 @@ Model {
 		  Ports			  [0, 1]
 		  Position		  [60, 55, 90, 85]
 		  ZOrder		  -1
-		  LibraryVersion	  "1.216"
+		  LibraryVersion	  "1.388"
 		  SourceBlock		  "simulink/Sources/Band-Limited\nWhite Noise"
 		  SourceType		  "Band-Limited White Noise."
-		  ShowPortLabels	  "FromPortIcon"
-		  SystemSampleTime	  "-1"
-		  FunctionWithSeparateData "off"
-		  RTWMemSecFuncInitTerm	  "Inherit from model"
-		  RTWMemSecFuncExecute	  "Inherit from model"
-		  RTWMemSecDataConstants  "Inherit from model"
-		  RTWMemSecDataInternal	  "Inherit from model"
-		  RTWMemSecDataParameters "Inherit from model"
+		  ContentPreviewEnabled	  off
 		  Cov			  "[1]"
 		  Ts			  "P.Ts"
 		  seed			  "[23341]"
-		  VectorParams1D	  "on"
+		  VectorParams1D	  on
 		}
 		Block {
 		  BlockType		  Reference
@@ -2336,21 +2278,14 @@ Model {
 		  Ports			  [0, 1]
 		  Position		  [55, 155, 85, 185]
 		  ZOrder		  -2
-		  LibraryVersion	  "1.216"
+		  LibraryVersion	  "1.388"
 		  SourceBlock		  "simulink/Sources/Band-Limited\nWhite Noise"
 		  SourceType		  "Band-Limited White Noise."
-		  ShowPortLabels	  "FromPortIcon"
-		  SystemSampleTime	  "-1"
-		  FunctionWithSeparateData "off"
-		  RTWMemSecFuncInitTerm	  "Inherit from model"
-		  RTWMemSecFuncExecute	  "Inherit from model"
-		  RTWMemSecDataConstants  "Inherit from model"
-		  RTWMemSecDataInternal	  "Inherit from model"
-		  RTWMemSecDataParameters "Inherit from model"
+		  ContentPreviewEnabled	  off
 		  Cov			  "[1]"
 		  Ts			  "P.Ts"
 		  seed			  "[23341]"
-		  VectorParams1D	  "on"
+		  VectorParams1D	  on
 		}
 		Block {
 		  BlockType		  Reference
@@ -2359,21 +2294,14 @@ Model {
 		  Ports			  [0, 1]
 		  Position		  [55, 255, 85, 285]
 		  ZOrder		  -3
-		  LibraryVersion	  "1.216"
+		  LibraryVersion	  "1.388"
 		  SourceBlock		  "simulink/Sources/Band-Limited\nWhite Noise"
 		  SourceType		  "Band-Limited White Noise."
-		  ShowPortLabels	  "FromPortIcon"
-		  SystemSampleTime	  "-1"
-		  FunctionWithSeparateData "off"
-		  RTWMemSecFuncInitTerm	  "Inherit from model"
-		  RTWMemSecFuncExecute	  "Inherit from model"
-		  RTWMemSecDataConstants  "Inherit from model"
-		  RTWMemSecDataInternal	  "Inherit from model"
-		  RTWMemSecDataParameters "Inherit from model"
+		  ContentPreviewEnabled	  off
 		  Cov			  "[1]"
 		  Ts			  "P.Ts"
 		  seed			  "[23341]"
-		  VectorParams1D	  "on"
+		  VectorParams1D	  on
 		}
 		Block {
 		  BlockType		  TransferFcn
@@ -2614,13 +2542,13 @@ Model {
       Variant		      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		42
+	$ObjectID		30
 	$ClassName		"Simulink.Mask"
 	Display			"image(imread('gimbal.jpg'))"
       }
       System {
 	Name			"Gimbaled Camera"
-	Location		[742, 311, 1389, 931]
+	Location		[65, 24, 1366, 768]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2812,8 +2740,8 @@ Model {
       Variant		      off
       System {
 	Name			"Path Follower"
-	Location		[342, 425, 825, 853]
-	Open			off
+	Location		[76, 37, 1073, 781]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2868,7 +2796,7 @@ Model {
 	  Position		  [235, 82, 300, 118]
 	  ZOrder		  -5
 	  MATLABFcn		  "path_follow(u,P)"
-	  OutputDimensions	  "3"
+	  OutputDimensions	  "4"
 	  SampleTime		  "P.Ts"
 	}
 	Block {
@@ -2946,7 +2874,7 @@ Model {
       Variant		      off
       System {
 	Name			"Path Manager"
-	Location		[35, 515, 636, 1030]
+	Location		[65, 24, 1366, 768]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -3115,8 +3043,8 @@ Model {
       Variant		      off
       System {
 	Name			"Path Planner"
-	Location		[609, 518, 1269, 1029]
-	Open			off
+	Location		[65, 24, 1366, 768]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -3177,7 +3105,7 @@ Model {
 	  Ports			  [1, 1]
 	  Position		  [215, 100, 275, 130]
 	  ZOrder		  -6
-	  MATLABFcn		  "path_planner(u,P,map)"
+	  MATLABFcn		  "path_planner(u,P,P.map)"
 	  OutputDimensions	  "1+5*P.size_waypoint_array"
 	  SampleTime		  "100*P.Ts"
 	}
@@ -3249,7 +3177,7 @@ Model {
       Variant		      off
       System {
 	Name			"Point Gimbal"
-	Location		[930, 555, 1433, 1085]
+	Location		[65, 24, 1366, 768]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -3375,7 +3303,7 @@ Model {
       Variant		      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		43
+	$ObjectID		31
 	$ClassName		"Simulink.Mask"
 	Initialization		"% parameters for drawing aircraft\n  % scale size\n  size = 1;\n  fuse_l1    = 7;\n  fuse_l2    = 4;"
 	"\n  fuse_l3    = 15;\n  fuse_w     = 2;\n  wing_l     = 6;\n  wing_w     = 20;\n  tail_l     = 3;\n  tail_h     = 3;\n"
@@ -3404,21 +3332,21 @@ Model {
 	  Type			  "Simulink.MaskParameter"
 	  Dimension		  3
 	  Object {
-	    $ObjectID		    44
+	    $ObjectID		    32
 	    Type		    "edit"
 	    Name		    "map"
 	    Prompt		    "map"
-	    Value		    "map"
+	    Value		    "P.map"
 	  }
 	  Object {
-	    $ObjectID		    45
+	    $ObjectID		    33
 	    Type		    "edit"
 	    Name		    "R_min"
 	    Prompt		    "R_min"
 	    Value		    "P.R_min"
 	  }
 	  Object {
-	    $ObjectID		    46
+	    $ObjectID		    34
 	    Type		    "edit"
 	    Name		    "cam_fov"
 	    Prompt		    "FOV of Camera"
@@ -3429,8 +3357,8 @@ Model {
       }
       System {
 	Name			"draw environment \nwith Camera"
-	Location		[845, 45, 1434, 766]
-	Open			off
+	Location		[65, 24, 1366, 768]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -3591,13 +3519,13 @@ Model {
       Variant		      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		47
+	$ObjectID		35
 	$ClassName		"Simulink.Mask"
 	Display			"image(imread('monstertruck.jpg'))"
       }
       System {
 	Name			"target"
-	Location		[636, 373, 1000, 762]
+	Location		[65, 24, 1366, 768]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -3628,7 +3556,7 @@ Model {
 	  ZOrder		  -2
 	  ShowName		  off
 	  FunctionName		  "target_motion"
-	  Parameters		  "P,map"
+	  Parameters		  "P,P.map"
 	  SFunctionDeploymentMode off
 	  EnableBusSupport	  off
 	  SFcnIsStateOwnerBlock	  off
