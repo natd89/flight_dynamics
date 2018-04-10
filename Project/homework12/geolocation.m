@@ -49,26 +49,33 @@ function out = geolocation(in,P)
     %--------------------------------------
     % begin geolocation code 
     
-%     l_c = [eps_x;eps_y; eps_s]/norm([eps_x;eps_y; eps_s]);
-    l_c = [eps_x;eps_y; P.f]/sqrt(eps_x^2+eps_y^2+P.f^2);
-    
     Rot_g_to_c = [0,0,1;1,0,0;0,1,0];
     
-    ki = [0;0;1];
+    u = Rot_b_to_g(az,el)*[1;0;0];
     
-    cos_var_phi = dot(ki, Rot_v_to_b(phi,theta,psi)*Rot_b_to_g(az,el)*Rot_g_to_c*l_c);
+    u = Rot_v_to_b(phi,theta,psi)'*u;
     
-    L = h/cos_var_phi;
-    if eps_s~=0
-        L = P.f/(eps_s/2);
-    end
-    R_tot = Rot_v_to_b(phi,theta,psi)*Rot_b_to_g(az,el)*Rot_g_to_c*l_c;
+    pix = [eps_x;eps_y;P.f]/norm([eps_x;eps_y;P.f]);
     
-    p_obj = p_mav + L*R_tot;
+    pix = Rot_v_to_b(phi,theta,psi)'*Rot_b_to_g(az,el)*Rot_g_to_c*pix;
     
-    tn   = p_obj(1);
-    te   = p_obj(2);
+    alpha = acos(dot(u,[0;0;1]));
     
+    beta = acos(dot(pix,[0;0;1]));
+    
+    V = u*h/cos(alpha);
+    
+    Q = pix*h/cos(beta);
+    
+    O = [Q(1);Q(2)];
+    
+    p = [V(1);V(2)];
+   
+
+      tn = O(1)+pn;
+      te = O(2)+pe;
+      L = norm(O);
+      
     % end geolocation code 
     %--------------------------------------    
     

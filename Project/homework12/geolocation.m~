@@ -49,26 +49,49 @@ function out = geolocation(in,P)
     %--------------------------------------
     % begin geolocation code 
     
-%     l_c = [eps_x;eps_y; eps_s]/norm([eps_x;eps_y; eps_s]);
-    l_c = [eps_x;eps_y; P.f]/sqrt(eps_x^2+eps_y^2+P.f^2);
-    
     Rot_g_to_c = [0,0,1;1,0,0;0,1,0];
     
-    ki = [0;0;1];
+    u = Rot_b_to_g(az,el)*[1;0;0];
     
-    cos_var_phi = dot(ki, Rot_v_to_b(phi,theta,psi)*Rot_b_to_g(az,el)*Rot_g_to_c*l_c);
+    u = Rot_v_to_b(phi,theta,psi)'*u;
     
-    L = h/cos_var_phi;
-    if eps_s~=0
-        L = P.f/(eps_s/2);
-    end
-    R_tot = Rot_v_to_b(phi,theta,psi)*Rot_b_to_g(az,el)*Rot_g_to_c*l_c;
+    pix = [eps_x;eps_y,P.f]/norm([eps_x;eps_y,P.f]);
     
-    p_obj = p_mav + L*R_tot;
+    pix = Rot_v_to_b(phi,theta,psi)'*Rot_b_to_g(az,el)'*Rot_g_to_c'*pix;
     
-    tn   = p_obj(1)
-    te   = p_obj(2)
     
+    
+    alpha = acos(dot(u,[0;0;1]));
+    
+    V = u*h/cos(alpha);
+    
+    p = [V(1);V(2)];
+    
+%     l_c = [eps_x;eps_y; eps_s]/norm([eps_x;eps_y; eps_s]);
+%     l_c = [eps_x;eps_y; P.f]/sqrt(eps_x^2+eps_y^2+P.f^2);
+%     
+%     Rot_g_to_c = [0,0,1;1,0,0;0,1,0];
+%     
+%     ki = [0;0;1];
+%     
+%     cos_var_phi = dot(ki, Rot_v_to_b(phi,theta,psi)*Rot_b_to_g(az,el)*Rot_g_to_c*l_c);
+%     
+%     L = h/cos_var_phi;
+%     if eps_s~=0
+%         L = P.f/(eps_s/2);
+%     end
+%     R_tot = Rot_v_to_b(phi,theta,psi)*Rot_b_to_g(az,el)*Rot_g_to_c*l_c;
+%     
+%     p_obj = [pn;pe;-pd] + L*R_tot;
+%     
+%     tn   = p_obj(1);
+%     te   = p_obj(2);
+%     
+
+      tn = p(1)+pn;
+      te = p(2)+pe;
+      L = norm(V);
+      
     % end geolocation code 
     %--------------------------------------    
     
@@ -125,6 +148,9 @@ function R = Rot_b_to_g(az,el)
 
 %     R = Rot_g1_to_g * Rot_b_to_g1;
 
-R = [cos(az)*cos(el) -sin(
+R = [cos(el)*cos(az), -sin(el), -sin(el)*cos(az);...
+     cos(el)*sin(az), cos(az), -sin(el)*sin(az);...
+     sin(el), 0, cos(el)];
+    
 
 end

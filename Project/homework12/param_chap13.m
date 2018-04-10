@@ -296,7 +296,7 @@ P.phi_max = 45*pi/180;
     
 % simplified version gains
 P.b_chidot = 4;
-P.b_chi = 1;
+P.b_chi = 2;
 P.b_phi = 1;
 P.b_hdot = 2*0.7;
 P.b_h = 0.7^2;
