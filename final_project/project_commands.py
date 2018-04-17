@@ -1,9 +1,7 @@
-
 #!/usr/bin/env python
-
 import rospy
 import numpy as np
-from rosplane_msgs.msg import State 
+from rosplane_msgs.msg import State
 from pdb import set_trace as pause
 from rosplane_msgs.msg import Controller_Commands
 
@@ -11,7 +9,7 @@ from rosplane_msgs.msg import Controller_Commands
 class state_commands():
 
     def __init__(self):
-        
+
         self.Va_c = 0.
         self.h_c = 0.
         self.chi_c = 0.
@@ -33,9 +31,9 @@ class state_commands():
 
 
     def get_states(self, msg):
-        
+
         self.flag1 = 0
-        
+
         self.position = msg.position
         self.h = -self.position[2]
         self.Va = msg.Va
@@ -56,9 +54,9 @@ class state_commands():
         self.t = msg.header.stamp.secs + msg.header.stamp.nsecs * 1e-9
         self.sec = msg.header.stamp.secs
 
- 
+
     def fly(self):
-        
+
         if self.flag == 0:
             # takeoff
             self.h_c = 50.
@@ -129,7 +127,7 @@ class state_commands():
             if self.sec%5==0:
                 self.flag = 1
                 print self.flag
-        
+
 
     def run(self):
         while not rospy.is_shutdown():
@@ -137,7 +135,7 @@ class state_commands():
             self.rate.sleep()
 
 if __name__=="__main__":
-    
+
     rospy.init_node('controller_commands', anonymous=True)
 
     commands = state_commands()
