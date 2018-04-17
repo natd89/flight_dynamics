@@ -166,7 +166,7 @@ class autopilot():
 
         up = self.P['PITCH_KP']*error
         ui = self.P['PITCH_KI']*self.integrator_6
-        ud = -self.P['PITCH_KD']*self.q
+        ud = self.P['PITCH_KD']*self.q
 
         self.delta_e = self.sat(up+ud, self.phi_max, -self.phi_max)
 
