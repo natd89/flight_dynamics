@@ -16,6 +16,7 @@ class state_commands():
         self.t = 0.
         self.flag = 0
         self.flag1 = 1
+        self.interval = 4
         self.rate = rospy.Rate(100)
         self.commands = Controller_Commands()
 
@@ -59,8 +60,8 @@ class state_commands():
 
         if self.flag == 0:
             # takeoff
-            self.h_c = 50.
-            self.Va_c = 35.
+            self.h_c = 20.
+            self.Va_c = 20.
             self.chi_c = 0.
 
             self.commands.Va_c = self.Va_c
@@ -68,65 +69,59 @@ class state_commands():
             self.commands.chi_c = self.chi_c
             self.pub.publish(self.commands)
 
-            if self.h > 45.:
+            if self.h > 19.:
                 self.flag=1
                 print self.flag
 
         elif self.flag == 1:
             # turn
             self.chi_c = 90*np.pi/180.
-            self.h_c = 25.
+            self.h_c = 20.
 
             self.commands.Va_c = self.Va_c
             self.commands.h_c = self.h_c
             self.commands.chi_c = self.chi_c
             self.pub.publish(self.commands)
-
-            if self.sec%5==0:
-                self.flag = 2
-                print self.flag
+            rospy.sleep(self.interval)
+            self.flag=2
 
         elif self.flag == 2:
             # turn
             self.chi_c = 180*np.pi/180.
-            self.h_c = 50.
+            self.h_c = 20.
 
             self.commands.Va_c = self.Va_c
             self.commands.h_c = self.h_c
             self.commands.chi_c = self.chi_c
             self.pub.publish(self.commands)
-
-            if self.sec%5==0:
-                self.flag = 3
-                print self.flag
+            rospy.sleep(self.interval)
+            self.flag=3
 
         elif self.flag == 3:
             # turn
-            self.chi_c = 270*np.pi/180.
-            self.h_c = 25.
+            self.chi_c = -90*np.pi/180.
+            self.h_c = 20.
 
             self.commands.Va_c = self.Va_c
             self.commands.h_c = self.h_c
             self.commands.chi_c = self.chi_c
             self.pub.publish(self.commands)
 
-            if self.sec%5==0:
-                self.flag = 4
-                print self.flag
+            rospy.sleep(self.interval)
+            self.flag=4
 
         elif self.flag == 4:
             # turn
             self.chi_c = 0*np.pi/180.
-            self.h_c = 50.
+            self.h_c = 20.
 
             self.commands.Va_c = self.Va_c
             self.commands.h_c = self.h_c
             self.commands.chi_c = self.chi_c
             self.pub.publish(self.commands)
 
-            if self.sec%5==0:
-                self.flag = 1
-                print self.flag
+            rospy.sleep(self.interval)
+            self.flag=1
 
 
     def run(self):

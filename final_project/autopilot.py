@@ -22,7 +22,7 @@ class autopilot():
         self.theta_c_max = 30*np.pi/180.
         self.phi_max = 40*np.pi/180.
         self.altitude_takeoff_zone = 10
-        self.altitude_hold_zone = 10
+        self.altitude_hold_zone = 5
         self.climb_out_throttle = 1.0
         self.altitude_state = 0
 
@@ -41,6 +41,8 @@ class autopilot():
         self.error_5 = 0
         self.error_6 = 0
 
+        self.ap_differentiator_ = 0
+        self.at_differentiator_ = 0
 
         self.hdot = 0
         self.hdot_d = 0
@@ -126,7 +128,7 @@ class autopilot():
 
         up = self.P['COURSE_KP']*error
         ui = self.P['COURSE_KI']*self.integrator_2
-        ud = -self.P['COURSE_KD']*self.r
+        ud = self.P['COURSE_KD']*self.r
 
         self.phi_c = self.sat(up+ui+ud, self.phi_max, -self.phi_max)
 
@@ -146,7 +148,7 @@ class autopilot():
 
         up = self.P['ROLL_KP']*error
         ui = self.P['ROLL_KI']*self.integrator_5
-        ud = -self.P['ROLL_KD']*self.p
+        ud = self.P['ROLL_KD']*self.p
 
         self.delta_a = self.sat(up+ui+ud, self.phi_max, -self.phi_max)
 
@@ -184,15 +186,18 @@ class autopilot():
 
         self.integrator_1 = self.integrator_1 + (self.Ts/2.)*(error + self.error_1)
 
+        self.ap_differentiator_ = (2.0*self.tau - self.Ts)/(2.0*self.tau + self.Ts)*self.ap_differentiator_ + (2.0/(2.0*self.tau + self.Ts))*(error - self.error_1);
+
         up = self.P['AS_PITCH_KP']*error
         ui = self.P['AS_PITCH_KI']*self.integrator_1
+        ud = self.P['AS_PITCH_KD']*self.ap_differentiator_
 
-        self.theta_c = self.sat(up+ui, self.theta_c_max, -self.theta_c_max)
+        self.theta_c = self.sat(up+ui+ud, 20.*np.pi/180., -25.*np.pi/180.)
 
         # implement integrator antiwindup
 
         if not self.P['AS_PITCH_KI']==0:
-            theta_c_unsat = up + ui;
+            theta_c_unsat = up + ui + ud;
             k_antiwindup = self.Ts/self.P['AS_PITCH_KI']
             self.integrator_1 = self.integrator_1 + k_antiwindup*(self.theta_c-theta_c_unsat);
 
@@ -207,13 +212,16 @@ class autopilot():
 
         self.integrator_4 = self.integrator_4 + (self.Ts/2.)*(error + self.error_4)
 
+        self.at_differentiator_ = (2.0*self.tau - self.Ts)/(2.0*self.tau + self.Ts)*self.at_differentiator_ + (2.0/(2.0*self.tau + self.Ts))*(error - self.error_4);
+
         up = self.P['AS_THR_KP']*error
         ui = self.P['AS_THR_KI']*self.integrator_4
+        ud = self.P['AS_THR_KD']*self.at_differentiator_
 
-        self.delta_t = self.sat(self.P['TRIM_T']+up+ui,1,0)
+        self.delta_t = self.sat(self.P['TRIM_T']+up+ui+ud,1,0)
 
         if not self.P['AS_THR_KI']==0:
-            delta_t_unsat = self.P['TRIM_T']+up+ui
+            delta_t_unsat = self.P['TRIM_T']+up+ui+ud
             k_antiwindup = self.Ts/self.P['AS_THR_KI']
             self.integrator_4 = self.integrator_4 + k_antiwindup*(self.delta_t-delta_t_unsat)
 
@@ -226,7 +234,7 @@ class autopilot():
         error = self.h_c - self.h
 
         self.integrator_3 = self.integrator_3 + (self.Ts/2.)*(error+self.error_3)
-        self.hdot = (2*self.tau-self.Ts)/(2*self.tau+self.Ts)*self.hdot_d+(2/2*(self.tau+self.Ts))*(self.h-self.h_d)
+        self.hdot = (2*self.tau-self.Ts)/(2*self.tau+self.Ts)*self.hdot+(2/2*(self.tau+self.Ts))*(error-self.error_3)
 
         up = self.P['ALT_KP']*error
         ui = self.P['ALT_KI']*self.integrator_3
@@ -240,8 +248,6 @@ class autopilot():
             self.integrator_3 = self.integrator_3 + k_antiwindup*(self.theta_c-theta_c_unsat)
 
         self.error_3 = error
-        self.hdot_d = self.hdot
-        self.h_d = self.h
 
 
 
@@ -262,7 +268,7 @@ class autopilot():
         self.roll_hold()
 
         if self.altitude_state==0: # initialize state machine
-            print 'initializing state machine...'
+            #print 'initializing state machine...'
             if self.h<=self.altitude_takeoff_zone:
                 self.altitude_state = 1
             elif self.h<=self.h_c-self.altitude_hold_zone:
@@ -273,7 +279,7 @@ class autopilot():
                 self.altitude_state = 4
 
         if self.altitude_state==1: # in take-off zone
-            print 'taking off...'
+            #print 'taking off...'
             self.phi_c = 0
             self.roll_hold()
             self.delta_t = self.climb_out_throttle
@@ -283,7 +289,7 @@ class autopilot():
                 self.altitude_state = 2
 
         if self.altitude_state==2: # climb zone
-            # print 'climbing...'
+            #print 'climbing...'
             self.delta_t = self.climb_out_throttle
             self.airspeed_with_pitch_hold()
 
@@ -294,7 +300,7 @@ class autopilot():
                 self.altitude_state = 1
 
         if self.altitude_state==3: # descend zone
-            # print 'descending...'
+            #print 'descending...'
             self.delta_t = 0
             self.airspeed_with_pitch_hold()
 
@@ -302,7 +308,7 @@ class autopilot():
                 self.altitude_state = 4
 
         if self.altitude_state==4: # altitude hold zone
-            # print 'holding altitude...'
+            #print 'holding altitude...'
             self.airspeed_with_throttle_hold()
             self.altitude_hold()
 
@@ -319,8 +325,6 @@ class autopilot():
         self.commands.y = self.delta_e
         self.commands.z = self.delta_r
         self.commands.F = self.delta_t
-
-        print self.commands.y
 
         self.pub.publish(self.commands)
 
