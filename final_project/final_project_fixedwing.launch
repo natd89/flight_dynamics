@@ -1,0 +1,37 @@
+<!-- This is a launch file that runs the bare minimum requirements to get -->
+<!-- gazebo running for a fixed-wing aircraft -->
+
+<launch>
+  <arg name="mav_name"            default="fixedwing"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="verbose" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- Spawn MAV -->
+  <include file="$(find rosplane_sim)/launch/spawn_mav.launch">
+    <arg name="mav_name"            value="$(arg mav_name)" />
+    <arg name="model"               value="$(find rosplane_sim)/xacro/$(arg mav_name).xacro" />
+  </include>
+
+  <node name="autopilot" pkg="rosplane_sim" type="autopilot.py" />
+
+  <node name="state_commands" pkg="rosplane_sim" type="project_commands.py" />
+
+  <node name="trajectory_generator" pkg="rosplane_sim" type="trajectory_generator.py" />
+
+  <node name="plot_states" pkg="rosplane_sim" type="plot_states.py" />
+
+  <group ns="$(arg mav_name)">
+    <!-- Load Global Parameters for this MAV -->
+    <rosparam command="load" file="$(find rosplane_sim)/params/$(arg mav_name).yaml"/>
+
+  </group>
+
+
+
+
+</launch>

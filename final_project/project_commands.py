@@ -13,20 +13,22 @@ class state_commands():
         self.Va_c = 0.
         self.h_c = 0.
         self.chi_c = 0.
+        self.dh = 30.
         self.t = 0.
         self.flag = 0
         self.flag1 = 1
-        self.interval = 4
+        self.interval = 8
         self.rate = rospy.Rate(100)
         self.commands = Controller_Commands()
 
-        self.pub = rospy.Publisher('/fixedwing/controller_commands',Controller_Commands,queue_size=1)
+        self.pub = rospy.Publisher('/fixedwing/desired_commands',Controller_Commands,queue_size=1)
+        # self.pub = rospy.Publisher('/fixedwing/controller_commands',Controller_Commands,queue_size=1)
         rospy.Subscriber('/fixedwing/truth',State,self.get_states)
 
         check=1
         while self.flag1:
             if check:
-                print 'waiting for state...'
+                print 'waiting for states...'
                 check=0
         print 'states acquired...'
 
@@ -34,7 +36,6 @@ class state_commands():
     def get_states(self, msg):
 
         self.flag1 = 0
-
         self.position = msg.position
         self.h = -self.position[2]
         self.Va = msg.Va
@@ -60,8 +61,8 @@ class state_commands():
 
         if self.flag == 0:
             # takeoff
-            self.h_c = 20.
-            self.Va_c = 20.
+            self.h_c = 40.
+            self.Va_c = 10.
             self.chi_c = 0.
 
             self.commands.Va_c = self.Va_c
@@ -75,8 +76,7 @@ class state_commands():
 
         elif self.flag == 1:
             # turn
-            self.chi_c = 90*np.pi/180.
-            self.h_c = 20.
+            self.chi_c = -90*np.pi/180.
 
             self.commands.Va_c = self.Va_c
             self.commands.h_c = self.h_c
@@ -87,8 +87,7 @@ class state_commands():
 
         elif self.flag == 2:
             # turn
-            self.chi_c = 180*np.pi/180.
-            self.h_c = 20.
+            self.chi_c = 0*np.pi/180.
 
             self.commands.Va_c = self.Va_c
             self.commands.h_c = self.h_c
@@ -99,8 +98,7 @@ class state_commands():
 
         elif self.flag == 3:
             # turn
-            self.chi_c = -90*np.pi/180.
-            self.h_c = 20.
+            self.chi_c = 90*np.pi/180.
 
             self.commands.Va_c = self.Va_c
             self.commands.h_c = self.h_c
@@ -113,7 +111,6 @@ class state_commands():
         elif self.flag == 4:
             # turn
             self.chi_c = 0*np.pi/180.
-            self.h_c = 20.
 
             self.commands.Va_c = self.Va_c
             self.commands.h_c = self.h_c
@@ -122,6 +119,9 @@ class state_commands():
 
             rospy.sleep(self.interval)
             self.flag=1
+
+            self.h_c = self.dh + self.h_c
+            self.dh = -self.dh
 
 
     def run(self):

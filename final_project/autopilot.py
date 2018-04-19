@@ -20,7 +20,7 @@ class autopilot():
         self.Va_c=[]
 
         self.theta_c_max = 30*np.pi/180.
-        self.phi_max = 40*np.pi/180.
+        self.phi_max = 45*np.pi/180.
         self.altitude_takeoff_zone = 10
         self.altitude_hold_zone = 5
         self.climb_out_throttle = 1.0
